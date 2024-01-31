@@ -1,0 +1,3 @@
+../std_src/tcb018g3d3.v
+../post_sim/src/Decoder_sta.v
+../post_sim/src/Decoder_tb.v

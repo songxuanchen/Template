@@ -1,0 +1,26 @@
+#!/bin/csh -f
+
+set versionday = `date '+%Y%m%d_%H%M%S'`
+echo $versionday
+
+mkdir -p ./backup/$versionday
+rm -rf synopsys_cache_D-2010.03-SP5/
+rm -rf alib-52/
+rm -rf temp/
+
+if ((-d ./log)||(-d ./rpt)||(-d ./result)) then
+     mv log/ rpt/ result/ ./backup/$versionday
+endif
+
+mkdir -p log rpt result
+
+dc_shell-xg-t -f ./dc_run.tcl | tee ./log/syn.log
+#dc_shell -f ./dc_run.tcl | tee ./log/syn.log
+#***************************************************************
+# Post processing
+#***************************************************************
+#cd ./result
+#vim -e -s *.sdc < ../scr/mod_sdc
+#echo "sdc file(s) has been modified sucessfully...leaving the directory"
+#cd ..
+rm command.log

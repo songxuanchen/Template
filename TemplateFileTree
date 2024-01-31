@@ -1,0 +1,64 @@
+.
+├── code
+│   ├── v1
+│   │   ├── src
+│   │   └── tb
+│   └── v2
+│       ├── src
+│       └── tb
+├── ComEnvSetup.tcl
+├── post_sim
+│   ├── file_list
+│   ├── Makefile
+│   ├── noTimingcheck.cfg
+│   └── src
+├── pre_sim
+│   ├── file_list
+│   └── Makefile
+├── pwr
+│   ├── data
+│   │   ├── lib
+│   │   ├── Template_SYN.sdc
+│   │   ├── Template_syn.v
+│   │   └── Template.vcd
+│   ├── log
+│   ├── pt_original.tcl
+│   ├── pt.tcl
+│   ├── pt.tcl~
+│   ├── result
+│   ├── rpt
+│   └── run
+├── README.md
+├── sdc
+│   ├── digit_FUN.sdc
+│   ├── digit_POST.sdc
+│   ├── digit_PRE.sdc
+│   ├── digit_SYN.sdc
+│   └── Template_SYN.sdc
+├── sdf
+├── src
+│   ├── creat_list
+│   └── Template_rtl.lst
+├── std_src
+│   └── tcb018g3d3.v
+├── syn
+│   ├── alib-52
+│   ├── backup
+│   ├── dc_run.tcl
+│   ├── LibTemp
+│   ├── log
+│   │   └── syn.log
+│   ├── result
+│   ├── rpt
+│   ├── run
+│   ├── scr
+│   │   ├── ComConstraintSet.tcl
+│   │   ├── DesignReadin.tcl
+│   │   ├── EnvsSetup.tcl
+│   │   ├── physical_setup.tcl
+│   │   ├── ResultOutput.tcl
+│   │   └── SynConstraintSet.tcl
+│   └── temp
+└── TemplateFileTree
+
+29 directories, 32 files

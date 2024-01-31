@@ -1,0 +1,3 @@
+../code/tb/Decoder_tb.v
+../syn/result/Decoder_syn.v
+../std_src/tcb018g3d3.v

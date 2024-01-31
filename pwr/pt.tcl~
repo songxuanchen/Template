@@ -1,0 +1,76 @@
+####################################
+#
+# set the power analysis mode
+#
+####################################
+#
+set power_enable_analysis TRUE
+
+set power_analysis_mode  time_based
+#
+####################################
+#
+# read and link the gate level netlist
+#
+####################################
+#
+set DW_Path /home/rfid/zilong/dc_2013/libraries/syn
+set Data_Path /home/lzl/power_analyse/data
+set search_path ". \
+                $DW_Path \
+                $Data_Path"
+
+#set target_library "sc9mc_logic0040ll_base_rvt_c50_tt_typical_max_1p20v_125c.db"
+
+set link_library "* \ sc9mc_logic0040ll_base_rvt_c50_tt_typical_max_1p20v_125c.db\
+                   rom_1024x32_tt_1p20v_1p20v_125c.db\
+		   sram_2048x32_tt_1p20v_1p20v_125c.db\
+                   dw_foundation.sldb"
+
+#set link_library "sc9mc_logic0040ll_base_rvt_c50_tt_typical_max_1p20v_125c.db"
+
+read_verilog /home/rfid/zilong/power_analyse/data/top_soc_xcs_syn.v
+
+current_design top_soc_xcs
+
+link
+#
+####################################
+#
+# READ SDC and set transition time or annotate parasitics
+#
+####################################
+#
+read_sdc  /home/rfid/zilong/power_analyse/data/top_soc_xcs_SYN.sdc -echo
+#
+####################################
+#
+# Check,update,or report timing
+#
+####################################
+#
+check_timing
+
+update_timing
+
+report_timing
+#
+####################################
+#
+# read switching activity file
+#
+####################################
+#
+read_vcd  -zero_delay ./data/top_soc_xcs.vcd  -strip_path  tb_soc_xcs/utop_soc_xcs
+
+report_switching_activity -list_not_annotated
+#
+####################################
+#
+check_power
+
+update_power
+
+set_power_analysis_options -waveform_format out -waveform_output vcd
+
+report_power -hierarchy

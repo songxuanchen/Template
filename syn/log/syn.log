@@ -1,0 +1,1907 @@
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version O-2018.06-SP1 for linux64 - Jul 19, 2018 
+
+                    Copyright (c) 1988 - 2018 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+Initializing gui preferences from file  /home/ICer/.synopsys_dv_prefs.tcl
+set versionnum [clock format [clock seconds] -format %Y%m%d_%H%M%S]
+20240125_161417
+echo "Synthesis process begin at " $versionnum (YearMonthDate_HourMinuteSecond)
+Synthesis process begin at  20240125_161417 (YearMonthDate_HourMinuteSecond)
+#######################################################
+# setup common project environment
+#######################################################
+source -echo -verbose ../ComEnvSetup.tcl
+#######################################################
+# FileName : ComEnvSetup.tcl                          #
+# Project  : Decoder                                  #
+# Tech Lib : TSMC 180nm                               #
+# Syntax   : Tcl language                             #
+# Author   : Song Xuanchen                            #
+# Date     : 4-JAN-2024                               #
+# Description:                                        #
+# set variables used in the whole design flow         #
+#######################################################
+#######################################################
+# Define global path variables
+#######################################################
+set DesignTopName Decoder;#±Ø¸ÄÏî
+Decoder
+set ProjPath /home/ICer/IC_prj/8B-10B-Decoder/Decoder;#±Ø¸ÄÏî
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder
+set StdPath /home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a
+/home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a
+#set IoPath  /home/IC_lib/SMIC40LL/IO
+#set IpPath  /home/IC_lib/TSMC_28nm/techlib/ip
+#set MemPath $ProjPath/../techlib/library/mem
+#set PllPath $ProjPath/../techlib/library/ip/PLL
+set LibTemp $ProjPath/syn/LibTemp	;#·Ç±ØÐëÏî£¬½ö×÷ÎªËÑË÷¿âÎÄ¼þÊ±ºòµÄ±¸Ñ¡Â·¾¶
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/LibTemp
+#set HkPath  $ProjPath/../Library/HK
+set SrcPath $ProjPath/src
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/src
+set SdcPath $ProjPath/sdc
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/sdc
+set PnrPath $ProjPath/pnr
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/pnr
+#######################################################
+# DesignWare directory
+#######################################################
+#set DWPath /edatools/snps/syn10.03-SP5/libraries/syn
+#set DWROOT /edatools/snps/syn10.03-SP5
+set DWPath /home/synopsys/syn/O-2018.06-SP1/libraries/syn
+/home/synopsys/syn/O-2018.06-SP1/libraries/syn
+#set current_dc_shell_path [exec which dc_shell-t]
+#set DWROOT [string range $current_dc_shell_path 0 [expr [string first "/${sh_arch}" $current_dc_shell_path] - 1]]
+#set DWPath ${DWROOT}/libraries/syn
+set search_path ".                 $SrcPath                 $StdPath                 $LibTemp 		        $DWPath     "
+.                 /home/ICer/IC_prj/8B-10B-Decoder/Decoder/src                 /home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a                 /home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/LibTemp           /home/synopsys/syn/O-2018.06-SP1/libraries/syn     
+#######################################################
+# Define library variables
+#######################################################
+# WLM declaration
+#set WireLoadModelName ZeroWireload
+#set WireLoadModeName segmented
+#´ò¿ª¶ÔÓ¦libÎÄ¼þ£¬¼ìË÷operating_conditions£¬£¨£©ÖÐ¼´Îª´Ë´¦ËùÐè--¸Ð¾õ±äÁ¿¿ÉÒÔÉ¾³ý
+set LtOptCond  LTCOM 
+LTCOM
+set BcOptCond  BCCOM 
+BCCOM
+set MlOptCond  MLCOM
+MLCOM
+set TcOptCond  NCCOM
+NCCOM
+set WcOptCond  WCCOM
+WCCOM
+set WclOptCond  WCLCOM
+WCLCOM
+set LtLibName  tcb018g3d3lt
+tcb018g3d3lt
+set BcLibName  tcb018g3d3bc
+tcb018g3d3bc
+set MlLibName  tcb018g3d3ml
+tcb018g3d3ml
+set TcLibName  tcb018g3d3tc
+tcb018g3d3tc
+set WcLibName  tcb018g3d3wc
+tcb018g3d3wc
+set WclLibName tcb018g3d3wcl
+tcb018g3d3wcl
+set LtLibDbFile  ${LtLibName}.db
+tcb018g3d3lt.db
+set BcLibDbFile  ${BcLibName}.db
+tcb018g3d3bc.db
+set MlLibDbFile  ${MlLibName}.db
+tcb018g3d3ml.db
+set TcLibDbFile  ${TcLibName}.db
+tcb018g3d3tc.db
+set WcLibDbFile  ${WcLibName}.db
+tcb018g3d3wc.db
+set WclLibDbFile ${WclLibName}.db
+tcb018g3d3wcl.db
+set LtLibList [list     $LtLibDbFile \ 
+]    
+tcb018g3d3lt.db { }
+set TcLibList [list     $TcLibDbFile ]    
+tcb018g3d3tc.db
+set BcLibList [list     $BcLibDbFile ]    
+tcb018g3d3bc.db
+set MlLibList [list     $MlLibDbFile ]   
+tcb018g3d3ml.db
+set WclLibList [list     $WclLibDbFile ]    
+tcb018g3d3wcl.db
+set WcLibList [list     $WcLibDbFile ]    
+tcb018g3d3wc.db
+#set MemoryLibList [list	$SramDbFile1 						$SramDbFile2 						$SramDbFile3 						$SramDbFile4 						$SramDbFile5 ]
+#   HDLY03HEF13V01_MAX.db  #   HCGF01HEF13V01_MAX.db #   HKCMPOI03V1_TYP.db #   HKCMPOI04V1_TYP.db #   HKCMPOI05V1_TYP.db #   HKCMRGI07V1_TYP.db #   HRNG02HEF13V01_MAX.db #   HTD03HEF13V01_MAX.db 
+#dw_foundation.sldbÊÇSynopsysÌá¹©µÄÃûÎªDesignWareµÄ×ÛºÏ¿â£¬
+#Ëü°üº¬ÁË»ù±¾µÄËãÊõÔËËãÂß¼­¡¢¿ØÖÆÂß¼­¡¢¿É×ÛºÏ´æ´¢Æ÷µÈIP£¬
+#ÔÚ×ÛºÏÊÇµ÷ÓÃÕâÐ©IPÓÐÖúÓÚÌá¸ßµçÂ·ÐÔÄÜºÍ¼õÉÙ×ÛºÏÊ±¼ä
+set DwLibList [list     dw_foundation.sldb ]
+dw_foundation.sldb
+#######################################################
+# Define design rule varialbes
+#######################################################
+set MaxArea 0;#ÓësdcÎÄ¼þÖØ¸´£¿
+0
+set MaxCapacitance 1
+1
+set MaxTransition 1.6810;   #Best case
+1.6810
+#set MaxTransition 2.1070;   #Typical case
+#set MaxTransition 3.0340;   #Worst case
+set MaxFanout 10
+10
+#######################################################
+# Define operating envirement variables
+#######################################################
+#set PortDriveCell PCI6BSW INV0_8TR40
+#set PortDrivePin PAD
+#set PortLoad PCI6BSW
+set PortDriveCell BUFFD12
+BUFFD12
+set PortDrivePin I
+I
+set PortLoad BUFFD12
+BUFFD12
+#######################################################
+# Clock gating varailbes define
+#######################################################
+set ClockGatingFanout 16
+16
+set ClockGatingSetup  0.1
+0.1
+set ClockGatingHold   0.1
+0.1
+set ClockGatingMinNum 4
+4
+#######################################################
+# Variables about EDA tools
+#######################################################
+set sh_enable_page_mode true	;#·ÖÒ³ÏÔÊ¾
+false
+set designer {STLE:username}
+STLE:username
+set company "WXT"
+WXT
+alias h history
+alias page_on {set sh_enable_page_mode true}
+alias page_off {set sh_enable_page_mode false}
+alias all_gone {remove_design -all}
+history keep 100
+100
+set collection_result_display_limit 500
+500
+page_off
+false
+#######################################################
+# File End
+#######################################################
+#######################################################
+# setup the current project environment
+#######################################################
+source -echo -verbose ./scr/EnvsSetup.tcl
+#######################################################
+# define hdl source list file
+#######################################################
+set HDLFileList $SrcPath/${DesignTopName}_rtl.lst;#filelistÃüÃûÒª¶ÔÓ¦
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/src/Decoder_rtl.lst
+#######################################################
+# define synthesis result store path
+#######################################################
+set ProjSynPath $ProjPath/syn
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn
+set RptFilePath $ProjSynPath/rpt
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/rpt
+set OutputPath  $ProjSynPath/result
+/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/result
+#######################################################
+# define synthsis stratage variable
+#######################################################
+set ChipWorkMode SYN ; # FUN, TEST					#Ô¼ÊøÁËsdcÎÄ¼þÃüÃû
+SYN
+set DesignFlowStage SYN ; # SYN PRE POST		#²»Í¬½×¶ÎµÄÊ±ÖÓ¡¢rstÔ¼Êø²»Í¬
+SYN
+#set ClkMargin 1.2 ; # This number must larger than 1
+set TestReadySyn false ; # true/false				#Test-ready compileÊÇ·ñ¿ªÆô¡ª¡ª¡ª¡ªcompileÊ±ÓÐÎÞ-scanÑ¡Ïî
+false
+#[-scan]: Enables the examination of the impact of scan insertion on 
+# mission-mode constraints during optimization, as in a normal compile.
+# Use this option to replace all sequential elements during optimization.
+set ClockGatingSyn false ; # true/false			#ÊÇ·ñ¿ªÆôÃÅ¿ØÊ±ÖÓÓÅ»¯
+false
+set SuppressWarning false ; # true/false		#Disables printing of one or more informational or warning messages.
+false
+#######################################################
+# define library
+#######################################################
+set target_library "$BcLibDbFile"
+tcb018g3d3bc.db
+set synthetic_library "$DwLibList"
+dw_foundation.sldb
+set link_library " *     $BcLibList     $synthetic_library     "
+ *     tcb018g3d3bc.db     dw_foundation.sldb     
+#remove synthetic_library from link_library
+#set symbol_library " "			;#ÔËÐÐDesign VisionÍ¼ÐÎ½çÃæ²é¿´ÃÅ¼¶Íø±íÊ±ÐèÒª
+#######################################################
+# set don't use cell				#×ÛºÏÊ±±ÜÃâÊ¹ÓÃµÄ±ê×¼µ¥Ôª£¨»ùÓÚ¹¦ºÄ¡¢¹¤ÒÕµÈ¿¼ÂÇ£©
+#######################################################
+#set_dont_use [list #     scs8lp_buscells_ss_1.55v_-40C/scs8lp_bus* #     scs8lp_diodes/scs8lp_diode* #     scs8lp_ss_1.55v_-40C/scs8lp_dly* #     scs8lp_ss_1.55v_-40C/scs8lp_clk* #     scs8lp_ss_1.55v_-40C/scs8lp_einv* #     scs8lp_ss_1.55v_-40C/scs8lp_ebufn* #     scs8lp_ss_1.55v_-40C/scs8lp_bufinv* #     scs8lp_ss_1.55v_-40C/scs8lp_bufbuf* #     scs8lp_ss_1.55v_-40C/scs8lp_lsbuf* #     scs8lp_ss_1.55v_-40C/scs8lp_buflp* #     scs8lp_ss_1.55v_-40C/scs8lp_bufkapwr* #     scs8lp_ss_1.55v_-40C/scs8lp_invkapwr* #     scs8lp_ss_1.55v_-40C/scs8lp_invlp* #     scs8lp_ss_1.55v_-40C/scs8lp_inputiso* #     scs8lp_ss_1.55v_-40C/scs8lp_iso* #     scs8lp_ss_1.55v_-40C/scs8lp_sleep* #     scs8lp_ss_1.55v_-40C/scs8lp_srdl* #     scs8lp_ss_1.55v_-40C/scs8lp_srsdf* #     scs8lp_ss_1.55v_-40C/scs8lp_sreg* #     scs8lp_ss_1.55v_-40C/scs8lp_dfbb* #     scs8lp_ss_1.55v_-40C/scs8lp_conb_*
+#     ]
+#set_dont_use fs90a_c_generic_core_ss2p25v125c/HA1
+#set_dont_use fs90a_c_generic_core_ss2p25v125c/HA1P
+#set_dont_use fs90a_c_generic_core_ss2p25v125c/HA1T
+#set_dont_use fs90a_c_generic_core_ss2p25v125c/HA1S
+# clock buffer, inverter, delay cells
+#    set_dont_use "${MaxLibName}/*EDFF* ${MaxLibName}/*CLK* ${MaxLibName}/HOLD* ${MaxLibName}/DL* ${MaxLibName}/*XLM"
+# tiehigh, tielow cells
+#    set_dont_use ""
+# other cells
+#    set_dont_use ""
+#remove_attribute "${MaxLibName}/TIE*" dont_touch
+#remove_attribute "${MaxLibName}/TIE*" dont_use
+#######################################################
+# clock gating cell
+#######################################################
+if { $ClockGatingSyn == "true" } {
+    set power_driven_clock_gating true;#Ñ¡ÏîÎªtrueÊ±£¬ÅäºÏ±àÒë(compile)Ê±-gate_clockÑ¡Ïî£¬Ê¹¶ÔÃÅ¿ØÊ±ÖÓµÄÓÅ»¯»ùÓÚ switching activity and dynamic power of the register banks
+#    set power_cg_all_registers true
+#    set power_remove_redundant_clock_gates false
+}
+#######################################################
+# Suppress Warnings message			#ÈçºÎÕÒwarning±àºÅ£¿
+#######################################################
+# OPT-1006 # (warning) Pad %s connected to port %s is donttouch. No optimization done.
+# OPT-1022 # (warning) IO pad %s is unusable: unknown logic function.
+# VER-130 # (warning) %s Intraassignment delays for nonblocking assignments are ignored.
+# VER-173 # (warning) %s delays for continuous assignment are ignored.
+# VER-311 # (warning) %s Parameter range specification is new feature of Verilog 2001. Synthesis and non-Verilog 2001 compatible simulation may have different results.
+# VER-314 # (warning) %s Starting with the 2000.11-1 release, the Presto Verilog reader treats Verilog integer types as signed; synthesized result may not match earlier versions of HDL Compiler.
+# VER-318 # (warning) %s %s to %s %s occurs.
+# Implicitly converts an unsigned expression to a signed expression
+# Implicitly converts a signed expression to an unsigned expression
+# Assigns an unsigned right side to a signed left side
+# Assigns a signed right side to an unsigned left side.
+# VER-936 # (warning) %s the undeclared symbol %s assumed to have the default net type, which is %s.
+# VER-1000 # (warning) The hdlin_enable_presto variable will be ignored in a future release.
+# ELAB-311 # (warning) %s DEFAULT branch of CASE statement cannot be reached.
+# UID-401 # (warning) Design rule attributes from the driving cell will be set on the port.
+# TIM-128 # (warning) No controlling value could be found for the clock gating cell %s for the clock pin %s.
+# TIM-141 # (warning) Gated clock latch is not created for cell %s on pin %s in design %s.
+suppress_message VER-130
+suppress_message ELAB-311
+if { $SuppressWarning == "true" } {
+    suppress_message OPT-1006
+    suppress_message OPT-1022
+    suppress_message VER-130
+    suppress_message VER-173
+    suppress_message VER-311
+    suppress_message VER-314
+    suppress_message VER-318
+    suppress_message VER-936
+    suppress_message VER-1000
+    suppress_message ELAB-311
+    suppress_message UID-401
+    suppress_message TIM-128
+    suppress_message TIM-141
+}
+#######################################################
+# set SVF File
+#######################################################
+#svfÎÄ¼þ£º¼ÇÂ¼×ÛºÏ¹¤¾ß¶ÔÉè¼Æ½øÐÐÁËÄÄÐ©ÓÅ»¯£¬fm¹¤¾ß¶Á½øÕâÐ©±ä»¯²ÅÄÜ±È¶ÔRTLµ½Íø±í;
+#set_svfÖ¸¶¨svfÎÄ¼þÃû×ÖºÍÊä³öÂ·¾¶
+set_svf ${OutputPath}/${DesignTopName}_syn.svf
+1
+#######################################################
+# Synopsys variables for Cadence compatibility
+#######################################################
+define_design_lib WORK -path ./temp;#½«Éè¼Æ¿âWORKÓ³Éäµ½Ö¸¶¨Ä¿Â¼¡£¸ÃÄ¿Â¼ÓÃÓÚ´æ´¢Éè¼ÆµÄÖÐ¼ä±íÊ¾¡££¨ÕâÀïÃ»É¶ÓÃ°É..£©
+1
+set cache_write ./temp;#»º´æÄ¿Â¼
+./temp
+set cache_read ./temp
+./temp
+#set cache_write .
+#set cache_read .
+set compile_log_format {%elap_time %trials %mem %wns %max_delay %min_delay %tns %drc %area %group_path %endpoint}
+%elap_time %trials %mem %wns %max_delay %min_delay %tns %drc %area %group_path %endpoint
+set hdlin_enable_vpp           "true"
+Information: Variable 'hdlin_enable_vpp' is obsolete and is being ignored. (INFO-100)
+true
+set hdlin_check_no_latch       "true"
+true
+set edifout_netlist_only       "true"
+true
+set enable_edif_netlist_writer "true"
+true
+set change_names_dont_change_bus_members "true"
+true
+set hdlin_infer_complex_set_reset     "true"
+Information: Use of Variable 'hdlin_infer_complex_set_reset' is not recommended. This variable will be obsolete in a future release. (INFO-101)
+true
+set edifout_target_system     "cadence"
+cadence
+set edifout_top_level_symbol  "true"
+true
+set bus_extraction_style      "%s\[%d:%d\]"
+%s[%d:%d]
+set bus_inference_style       "%s\[%d\]"
+%s[%d]
+set bus_naming_style          "%s\[%d\]"
+%s[%d]
+set bus_range_separator_style ":"
+:
+set edifout_skip_port_implementations "false"
+false
+set edifout_translate_origin      "center"
+center
+set edifout_instantiate_ports     "true"
+true
+set edifout_external              "true"
+true
+set edifout_merge_libraries       "false"
+false
+set edifout_no_array              "false"
+false
+set edifout_netlist_only          "false"
+false
+set duplicate_ports               "false"
+false
+set write_name_nets_same_as_ports "true"
+true
+set single_group_per_sheet        "true"
+true
+set use_port_name_for_oscs        "false"
+false
+set gen_match_ripper_wire_widths  "true"
+true
+set sh_enable_line_editing true
+true
+set high_fanout_net_threshold 0
+0
+#*****************************
+set bind_unused_hierarchical_pins FALSE
+FALSE
+# this is a hiden variable 
+#set dont_bind_unused_pins_to_logic_constant true
+#######################################################
+# other variables
+#######################################################
+set verilogout_single_bit false
+false
+set verilogout_higher_designs_first true
+true
+set verilogout_equation false
+false
+set verilogout_no_tri true
+true
+set verilogout_single_bit false
+false
+#set verilogout_show_unconnected_pins true
+set timing_enable_multiple_clocks_per_reg true
+true
+#set compile_automatic_clock_phase_inference none
+#set access_internal_pins true
+# Synopsys internal variables, used for formal verification debug
+set extra_svf_gat_dp true
+true
+set synlib_dwgen_svf_updates true
+true
+printvar extra_svf_gat_dp
+extra_svf_gat_dp     = "true"
+printvar synlib_dwgen_svf_updates
+synlib_dwgen_svf_updates = "true"
+set compile_seqmap_identify_shift_registers false
+false
+set compile_seqmap_identify_shift_registers_with_synchronous_logic false
+false
+set enable_recovery_removal_arcs true
+true
+#######################################################
+# define name rules ---¿ÉÒÔºöÂÔ
+#######################################################
+define_name_rules cadence -type port     -equal_ports_nets     -allowed {a-z A-Z 0-9 _ []}     -first_restrict {0-9 _}     -last_restrict "_"
+1
+define_name_rules cadence -type cell     -allowed {a-z A-Z 0-9 _ }     -first_restrict {0-9 _}     -last_restrict "_"     -map {{{"*cell*","u"}, {"*-return","ret"},{"\[", "_"}, {"\]", ""},     {"tr0_en_reg_reg","tr0_en_reg_inst"},{"tr0_en_reg", "tr0_en_inst1"}}}
+1
+define_name_rules cadence -type net     -allowed "a-zA-Z0-9_"     -case_insensitive     -equal_ports_nets     -first_restricted "0-9_"     -last_restricted "_"     -max_length 256
+1
+define_name_rules slash -restricted {/} -replacement_char {.}
+1
+#######################################################
+# multiple cores to run
+#######################################################
+set_host_options -max_cores 6
+1
+1
+#######################################################
+# read in hdl source code
+#######################################################
+source -echo -verbose ./scr/DesignReadin.tcl
+#######################################################
+# Readin design 
+#######################################################
+set RTLFileList [exec cat $HDLFileList];#execute£º±£Ö¤LinuxÖ¸Áîcat¿ÉÒÔÔËÐÐ³É¹¦
+./B4_ADDER.v
+./B6_ADDER.v
+./clk_div.v
+./CODE_DETECT.v
+./COMMA.v
+./Data_Test_Ctrl.v
+./DECODE_3B4B.v
+./DECODE_5B6B.v
+./DECODE_8B10B.v
+./Decoder.v
+./DEMUX_1_25.v
+./DEMUX_1_5.v
+./DEMUX_8_200.v
+./DMUX_10_1.v
+./Frame_Sync.v
+./MUX_20_10.v
+./Parity_Check.v
+./RD_DETECT.v
+#ÒÀ´ÎÈ¡filelistÖÐ¸÷ÐÐ´úÂë£¬¶ÁÈëRTL´úÂë
+foreach rtlfile $RTLFileList {
+    if { [file exists $SrcPath/$rtlfile] == 1 } {
+        if { [file extension $rtlfile ] == ".v" || [file extension $rtlfile ] == ".define" || [file extension $rtlfile] == ".inc" } {
+            echo "\n\n\nPerform $rtlfile Reading ..........................\n\n\n"
+            analyze -f verilog $SrcPath/$rtlfile >> $RptFilePath/analyze.rpt
+            #read_verilog $SrcPath/$rtlfile
+        } elseif { [file extension $rtlfile] == ".vhdl" || [file extension $rtlfile] == ".vhd" } {
+            echo "\n\n\nPerform $rtlfile Reading ..........................\n\n\n"
+            analyze -f vhdl $SrcPath/$rtlfile
+        } else {
+            echo "\n\n\nFailed readin: File $rtlfile can not be recognized\n\n\n"
+            quit
+        }
+    } else {
+        echo "\n\nCan not find file $rtlfile! Please check it.\n\n"
+        quit
+    }
+}
+
+
+
+Perform ./B4_ADDER.v Reading ..........................
+
+
+
+
+
+
+Perform ./B6_ADDER.v Reading ..........................
+
+
+
+
+
+
+Perform ./clk_div.v Reading ..........................
+
+
+
+
+
+
+Perform ./CODE_DETECT.v Reading ..........................
+
+
+
+
+
+
+Perform ./COMMA.v Reading ..........................
+
+
+
+
+
+
+Perform ./Data_Test_Ctrl.v Reading ..........................
+
+
+
+
+
+
+Perform ./DECODE_3B4B.v Reading ..........................
+
+
+
+
+
+
+Perform ./DECODE_5B6B.v Reading ..........................
+
+
+
+
+
+
+Perform ./DECODE_8B10B.v Reading ..........................
+
+
+
+
+
+
+Perform ./Decoder.v Reading ..........................
+
+
+
+
+
+
+Perform ./DEMUX_1_25.v Reading ..........................
+
+
+
+
+
+
+Perform ./DEMUX_1_5.v Reading ..........................
+
+
+
+
+
+
+Perform ./DEMUX_8_200.v Reading ..........................
+
+
+
+
+
+
+Perform ./DMUX_10_1.v Reading ..........................
+
+
+
+
+
+
+Perform ./Frame_Sync.v Reading ..........................
+
+
+
+
+
+
+Perform ./MUX_20_10.v Reading ..........................
+
+
+
+
+
+
+Perform ./Parity_Check.v Reading ..........................
+
+
+
+
+
+
+Perform ./RD_DETECT.v Reading ..........................
+
+
+
+elaborate $DesignTopName > $RptFilePath/elaborate.rpt
+current_design $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+change_name -rules verilog
+Warning: The specified replacement character (_) is conflicting with the specified allowed or restricted character.   (UCN-4)
+1
+change_name -rules cadence
+1
+change_name -rules slash
+1
+change_name -verbose -hier -rules cadence
+
+Design          Type    Object                  New Name
+--------------------------------------------------------------------------------
+MUX_20_10       cell    data_temp_reg[19]       data_temp_reg_19
+MUX_20_10       cell    data_temp_reg[18]       data_temp_reg_18
+MUX_20_10       cell    data_temp_reg[17]       data_temp_reg_17
+MUX_20_10       cell    data_temp_reg[16]       data_temp_reg_16
+MUX_20_10       cell    data_temp_reg[15]       data_temp_reg_15
+MUX_20_10       cell    data_temp_reg[14]       data_temp_reg_14
+MUX_20_10       cell    data_temp_reg[13]       data_temp_reg_13
+MUX_20_10       cell    data_temp_reg[12]       data_temp_reg_12
+MUX_20_10       cell    data_temp_reg[11]       data_temp_reg_11
+MUX_20_10       cell    data_temp_reg[10]       data_temp_reg_10
+MUX_20_10       cell    data_temp_reg[9]        data_temp_reg_9
+MUX_20_10       cell    data_temp_reg[8]        data_temp_reg_8
+MUX_20_10       cell    data_temp_reg[7]        data_temp_reg_7
+MUX_20_10       cell    data_temp_reg[6]        data_temp_reg_6
+MUX_20_10       cell    data_temp_reg[5]        data_temp_reg_5
+MUX_20_10       cell    data_temp_reg[4]        data_temp_reg_4
+MUX_20_10       cell    data_temp_reg[3]        data_temp_reg_3
+MUX_20_10       cell    data_temp_reg[2]        data_temp_reg_2
+MUX_20_10       cell    data_temp_reg[1]        data_temp_reg_1
+MUX_20_10       cell    data_temp_reg[0]        data_temp_reg_0
+MUX_20_10       net     *Logic0*                n_Logic0_
+COMMA           cell    dly_data_500M_10bit_reg[5][9] dly_data_500M_10bit_reg_5_9
+COMMA           cell    dly_data_500M_10bit_reg[5][8] dly_data_500M_10bit_reg_5_8
+COMMA           cell    dly_data_500M_10bit_reg[5][7] dly_data_500M_10bit_reg_5_7
+COMMA           cell    dly_data_500M_10bit_reg[5][6] dly_data_500M_10bit_reg_5_6
+COMMA           cell    dly_data_500M_10bit_reg[5][5] dly_data_500M_10bit_reg_5_5
+COMMA           cell    dly_data_500M_10bit_reg[5][4] dly_data_500M_10bit_reg_5_4
+COMMA           cell    dly_data_500M_10bit_reg[5][3] dly_data_500M_10bit_reg_5_3
+COMMA           cell    dly_data_500M_10bit_reg[5][2] dly_data_500M_10bit_reg_5_2
+COMMA           cell    dly_data_500M_10bit_reg[5][1] dly_data_500M_10bit_reg_5_1
+COMMA           cell    dly_data_500M_10bit_reg[5][0] dly_data_500M_10bit_reg_5_0
+COMMA           cell    dly_data_500M_10bit_reg[4][9] dly_data_500M_10bit_reg_4_9
+COMMA           cell    dly_data_500M_10bit_reg[4][8] dly_data_500M_10bit_reg_4_8
+COMMA           cell    dly_data_500M_10bit_reg[4][7] dly_data_500M_10bit_reg_4_7
+COMMA           cell    dly_data_500M_10bit_reg[4][6] dly_data_500M_10bit_reg_4_6
+COMMA           cell    dly_data_500M_10bit_reg[4][5] dly_data_500M_10bit_reg_4_5
+COMMA           cell    dly_data_500M_10bit_reg[4][4] dly_data_500M_10bit_reg_4_4
+COMMA           cell    dly_data_500M_10bit_reg[4][3] dly_data_500M_10bit_reg_4_3
+COMMA           cell    dly_data_500M_10bit_reg[4][2] dly_data_500M_10bit_reg_4_2
+COMMA           cell    dly_data_500M_10bit_reg[4][1] dly_data_500M_10bit_reg_4_1
+COMMA           cell    dly_data_500M_10bit_reg[4][0] dly_data_500M_10bit_reg_4_0
+COMMA           cell    dly_data_500M_10bit_reg[3][9] dly_data_500M_10bit_reg_3_9
+COMMA           cell    dly_data_500M_10bit_reg[3][8] dly_data_500M_10bit_reg_3_8
+COMMA           cell    dly_data_500M_10bit_reg[3][7] dly_data_500M_10bit_reg_3_7
+COMMA           cell    dly_data_500M_10bit_reg[3][6] dly_data_500M_10bit_reg_3_6
+COMMA           cell    dly_data_500M_10bit_reg[3][5] dly_data_500M_10bit_reg_3_5
+COMMA           cell    dly_data_500M_10bit_reg[3][4] dly_data_500M_10bit_reg_3_4
+COMMA           cell    dly_data_500M_10bit_reg[3][3] dly_data_500M_10bit_reg_3_3
+COMMA           cell    dly_data_500M_10bit_reg[3][2] dly_data_500M_10bit_reg_3_2
+COMMA           cell    dly_data_500M_10bit_reg[3][1] dly_data_500M_10bit_reg_3_1
+COMMA           cell    dly_data_500M_10bit_reg[3][0] dly_data_500M_10bit_reg_3_0
+COMMA           cell    dly_data_500M_10bit_reg[2][9] dly_data_500M_10bit_reg_2_9
+COMMA           cell    dly_data_500M_10bit_reg[2][8] dly_data_500M_10bit_reg_2_8
+COMMA           cell    dly_data_500M_10bit_reg[2][7] dly_data_500M_10bit_reg_2_7
+COMMA           cell    dly_data_500M_10bit_reg[2][6] dly_data_500M_10bit_reg_2_6
+COMMA           cell    dly_data_500M_10bit_reg[2][5] dly_data_500M_10bit_reg_2_5
+COMMA           cell    dly_data_500M_10bit_reg[2][4] dly_data_500M_10bit_reg_2_4
+COMMA           cell    dly_data_500M_10bit_reg[2][3] dly_data_500M_10bit_reg_2_3
+COMMA           cell    dly_data_500M_10bit_reg[2][2] dly_data_500M_10bit_reg_2_2
+COMMA           cell    dly_data_500M_10bit_reg[2][1] dly_data_500M_10bit_reg_2_1
+COMMA           cell    dly_data_500M_10bit_reg[2][0] dly_data_500M_10bit_reg_2_0
+COMMA           cell    dly_data_500M_10bit_reg[1][9] dly_data_500M_10bit_reg_1_9
+COMMA           cell    dly_data_500M_10bit_reg[1][8] dly_data_500M_10bit_reg_1_8
+COMMA           cell    dly_data_500M_10bit_reg[1][7] dly_data_500M_10bit_reg_1_7
+COMMA           cell    dly_data_500M_10bit_reg[1][6] dly_data_500M_10bit_reg_1_6
+COMMA           cell    dly_data_500M_10bit_reg[1][5] dly_data_500M_10bit_reg_1_5
+COMMA           cell    dly_data_500M_10bit_reg[1][4] dly_data_500M_10bit_reg_1_4
+COMMA           cell    dly_data_500M_10bit_reg[1][3] dly_data_500M_10bit_reg_1_3
+COMMA           cell    dly_data_500M_10bit_reg[1][2] dly_data_500M_10bit_reg_1_2
+COMMA           cell    dly_data_500M_10bit_reg[1][1] dly_data_500M_10bit_reg_1_1
+COMMA           cell    dly_data_500M_10bit_reg[1][0] dly_data_500M_10bit_reg_1_0
+COMMA           cell    dly_data_500M_10bit_reg[0][9] dly_data_500M_10bit_reg_0_9
+COMMA           cell    dly_data_500M_10bit_reg[0][8] dly_data_500M_10bit_reg_0_8
+COMMA           cell    dly_data_500M_10bit_reg[0][7] dly_data_500M_10bit_reg_0_7
+COMMA           cell    dly_data_500M_10bit_reg[0][6] dly_data_500M_10bit_reg_0_6
+COMMA           cell    dly_data_500M_10bit_reg[0][5] dly_data_500M_10bit_reg_0_5
+COMMA           cell    dly_data_500M_10bit_reg[0][4] dly_data_500M_10bit_reg_0_4
+COMMA           cell    dly_data_500M_10bit_reg[0][3] dly_data_500M_10bit_reg_0_3
+COMMA           cell    dly_data_500M_10bit_reg[0][2] dly_data_500M_10bit_reg_0_2
+COMMA           cell    dly_data_500M_10bit_reg[0][1] dly_data_500M_10bit_reg_0_1
+COMMA           cell    dly_data_500M_10bit_reg[0][0] dly_data_500M_10bit_reg_0_0
+COMMA           cell    curr_state_reg[1]       curr_state_reg_1
+COMMA           cell    curr_state_reg[0]       curr_state_reg_0
+COMMA           cell    sign_K_FF_reg[9]        sign_K_FF_reg_9
+COMMA           cell    sign_K_FF_reg[8]        sign_K_FF_reg_8
+COMMA           cell    sign_K_FF_reg[7]        sign_K_FF_reg_7
+COMMA           cell    sign_K_FF_reg[6]        sign_K_FF_reg_6
+COMMA           cell    sign_K_FF_reg[5]        sign_K_FF_reg_5
+COMMA           cell    sign_K_FF_reg[4]        sign_K_FF_reg_4
+COMMA           cell    sign_K_FF_reg[3]        sign_K_FF_reg_3
+COMMA           cell    sign_K_FF_reg[2]        sign_K_FF_reg_2
+COMMA           cell    sign_K_FF_reg[1]        sign_K_FF_reg_1
+COMMA           cell    sign_K_FF_reg[0]        sign_K_FF_reg_0
+COMMA           cell    sign_D_FF_reg[9]        sign_D_FF_reg_9
+COMMA           cell    sign_D_FF_reg[8]        sign_D_FF_reg_8
+COMMA           cell    sign_D_FF_reg[7]        sign_D_FF_reg_7
+COMMA           cell    sign_D_FF_reg[6]        sign_D_FF_reg_6
+COMMA           cell    sign_D_FF_reg[5]        sign_D_FF_reg_5
+COMMA           cell    sign_D_FF_reg[4]        sign_D_FF_reg_4
+COMMA           cell    sign_D_FF_reg[3]        sign_D_FF_reg_3
+COMMA           cell    sign_D_FF_reg[2]        sign_D_FF_reg_2
+COMMA           cell    sign_D_FF_reg[1]        sign_D_FF_reg_1
+COMMA           cell    sign_D_FF_reg[0]        sign_D_FF_reg_0
+COMMA           cell    dly_sign_D_FF_reg[9]    dly_sign_D_FF_reg_9
+COMMA           cell    dly_sign_D_FF_reg[8]    dly_sign_D_FF_reg_8
+COMMA           cell    dly_sign_D_FF_reg[7]    dly_sign_D_FF_reg_7
+COMMA           cell    dly_sign_D_FF_reg[6]    dly_sign_D_FF_reg_6
+COMMA           cell    dly_sign_D_FF_reg[5]    dly_sign_D_FF_reg_5
+COMMA           cell    dly_sign_D_FF_reg[4]    dly_sign_D_FF_reg_4
+COMMA           cell    dly_sign_D_FF_reg[3]    dly_sign_D_FF_reg_3
+COMMA           cell    dly_sign_D_FF_reg[2]    dly_sign_D_FF_reg_2
+COMMA           cell    dly_sign_D_FF_reg[1]    dly_sign_D_FF_reg_1
+COMMA           cell    sel_reg[6]              sel_reg_6
+COMMA           cell    sel_reg[5]              sel_reg_5
+COMMA           cell    sel_reg[4]              sel_reg_4
+COMMA           cell    sel_reg[3]              sel_reg_3
+COMMA           cell    sel_reg[2]              sel_reg_2
+COMMA           cell    sel_reg[1]              sel_reg_1
+COMMA           cell    sel_reg[0]              sel_reg_0
+COMMA           cell    g3[0].u_DMUX_10_1       g3_0_u_DMUX_10_1
+COMMA           cell    g3[1].u_DMUX_10_1       g3_1_u_DMUX_10_1
+COMMA           cell    g3[2].u_DMUX_10_1       g3_2_u_DMUX_10_1
+COMMA           cell    g3[3].u_DMUX_10_1       g3_3_u_DMUX_10_1
+COMMA           cell    g3[4].u_DMUX_10_1       g3_4_u_DMUX_10_1
+COMMA           cell    g3[5].u_DMUX_10_1       g3_5_u_DMUX_10_1
+COMMA           cell    g3[6].u_DMUX_10_1       g3_6_u_DMUX_10_1
+COMMA           cell    g3[7].u_DMUX_10_1       g3_7_u_DMUX_10_1
+COMMA           cell    g3[8].u_DMUX_10_1       g3_8_u_DMUX_10_1
+COMMA           cell    g3[9].u_DMUX_10_1       g3_9_u_DMUX_10_1
+COMMA           net     *Logic1*                n_Logic1_
+COMMA           net     *Logic0*                n_Logic0_
+COMMA           net     dly_data_500M_10bit[4][9] dly_data_500M_10bit_4__9_
+COMMA           net     dly_data_500M_10bit[3][9] dly_data_500M_10bit_3__9_
+COMMA           net     dly_data_500M_10bit[3][8] dly_data_500M_10bit_3__8_
+COMMA           net     dly_data_500M_10bit[3][7] dly_data_500M_10bit_3__7_
+COMMA           net     dly_data_500M_10bit[3][6] dly_data_500M_10bit_3__6_
+COMMA           net     dly_data_500M_10bit[3][5] dly_data_500M_10bit_3__5_
+COMMA           net     dly_data_500M_10bit[3][4] dly_data_500M_10bit_3__4_
+COMMA           net     dly_data_500M_10bit[3][3] dly_data_500M_10bit_3__3_
+COMMA           net     dly_data_500M_10bit[3][2] dly_data_500M_10bit_3__2_
+COMMA           net     dly_data_500M_10bit[3][1] dly_data_500M_10bit_3__1_
+COMMA           net     dly_data_500M_10bit[3][0] dly_data_500M_10bit_3__0_
+COMMA           net     dly_data_500M_10bit[2][9] dly_data_500M_10bit_2__9_
+COMMA           net     dly_data_500M_10bit[2][8] dly_data_500M_10bit_2__8_
+COMMA           net     dly_data_500M_10bit[2][7] dly_data_500M_10bit_2__7_
+COMMA           net     dly_data_500M_10bit[2][6] dly_data_500M_10bit_2__6_
+COMMA           net     dly_data_500M_10bit[2][5] dly_data_500M_10bit_2__5_
+COMMA           net     dly_data_500M_10bit[2][4] dly_data_500M_10bit_2__4_
+COMMA           net     dly_data_500M_10bit[2][3] dly_data_500M_10bit_2__3_
+COMMA           net     dly_data_500M_10bit[2][2] dly_data_500M_10bit_2__2_
+COMMA           net     dly_data_500M_10bit[2][1] dly_data_500M_10bit_2__1_
+COMMA           net     dly_data_500M_10bit[2][0] dly_data_500M_10bit_2__0_
+COMMA           net     dly_data_500M_10bit[0][9] dly_data_500M_10bit_0__9_
+DECODE_8B10B    cell    dly_S_indic_reg[4]      dly_S_indic_reg_4
+DECODE_8B10B    cell    dly_S_indic_reg[3]      dly_S_indic_reg_3
+DECODE_8B10B    cell    dly_S_indic_reg[2]      dly_S_indic_reg_2
+DECODE_8B10B    cell    dly_S_indic_reg[1]      dly_S_indic_reg_1
+DECODE_8B10B    cell    dly_S_indic_reg[0]      dly_S_indic_reg_0
+DECODE_8B10B    cell    dly_b10_reg[19]         dly_b10_reg_19
+DECODE_8B10B    cell    dly_b10_reg[18]         dly_b10_reg_18
+DECODE_8B10B    cell    dly_b10_reg[17]         dly_b10_reg_17
+DECODE_8B10B    cell    dly_b10_reg[16]         dly_b10_reg_16
+DECODE_8B10B    cell    dly_b10_reg[15]         dly_b10_reg_15
+DECODE_8B10B    cell    dly_b10_reg[14]         dly_b10_reg_14
+DECODE_8B10B    cell    dly_b10_reg[13]         dly_b10_reg_13
+DECODE_8B10B    cell    dly_b10_reg[12]         dly_b10_reg_12
+DECODE_8B10B    cell    dly_b10_reg[11]         dly_b10_reg_11
+DECODE_8B10B    cell    dly_b10_reg[10]         dly_b10_reg_10
+DECODE_8B10B    cell    dly_b10_reg[9]          dly_b10_reg_9
+DECODE_8B10B    cell    dly_b10_reg[8]          dly_b10_reg_8
+DECODE_8B10B    cell    dly_b10_reg[7]          dly_b10_reg_7
+DECODE_8B10B    cell    dly_b10_reg[6]          dly_b10_reg_6
+DECODE_8B10B    cell    dly_b10_reg[5]          dly_b10_reg_5
+DECODE_8B10B    cell    dly_b10_reg[4]          dly_b10_reg_4
+DECODE_8B10B    cell    dly_b10_reg[3]          dly_b10_reg_3
+DECODE_8B10B    cell    dly_b10_reg[2]          dly_b10_reg_2
+DECODE_8B10B    cell    dly_b10_reg[1]          dly_b10_reg_1
+DECODE_8B10B    cell    dly_b10_reg[0]          dly_b10_reg_0
+DECODE_8B10B    cell    b10_reg[9]              b10_reg_9
+DECODE_8B10B    cell    b10_reg[8]              b10_reg_8
+DECODE_8B10B    cell    b10_reg[7]              b10_reg_7
+DECODE_8B10B    cell    b10_reg[6]              b10_reg_6
+DECODE_8B10B    cell    b10_reg[5]              b10_reg_5
+DECODE_8B10B    cell    b10_reg[4]              b10_reg_4
+DECODE_8B10B    cell    b10_reg[3]              b10_reg_3
+DECODE_8B10B    cell    b10_reg[2]              b10_reg_2
+DECODE_8B10B    cell    b10_reg[1]              b10_reg_1
+DECODE_8B10B    cell    b10_reg[0]              b10_reg_0
+DECODE_8B10B    cell    curr_state_reg[1]       curr_state_reg_1
+DECODE_8B10B    cell    curr_state_reg[0]       curr_state_reg_0
+DECODE_8B10B    cell    cnt_reg[4]              cnt_reg_4
+DECODE_8B10B    cell    cnt_reg[3]              cnt_reg_3
+DECODE_8B10B    cell    cnt_reg[2]              cnt_reg_2
+DECODE_8B10B    cell    cnt_reg[1]              cnt_reg_1
+DECODE_8B10B    cell    cnt_reg[0]              cnt_reg_0
+DECODE_8B10B    cell    data_decoded_reg[7]     data_decoded_reg_7
+DECODE_8B10B    cell    data_decoded_reg[6]     data_decoded_reg_6
+DECODE_8B10B    cell    data_decoded_reg[5]     data_decoded_reg_5
+DECODE_8B10B    cell    data_decoded_reg[4]     data_decoded_reg_4
+DECODE_8B10B    cell    data_decoded_reg[3]     data_decoded_reg_3
+DECODE_8B10B    cell    data_decoded_reg[2]     data_decoded_reg_2
+DECODE_8B10B    cell    data_decoded_reg[1]     data_decoded_reg_1
+DECODE_8B10B    cell    data_decoded_reg[0]     data_decoded_reg_0
+DECODE_8B10B    net     *Logic1*                n_Logic1_
+DECODE_8B10B    net     *Logic0*                n_Logic0_
+Frame_Sync      cell    curr_state_reg[2]       curr_state_reg_2
+Frame_Sync      cell    curr_state_reg[1]       curr_state_reg_1
+Frame_Sync      cell    curr_state_reg[0]       curr_state_reg_0
+Frame_Sync      cell    Sync_cnt_reg[2]         Sync_cnt_reg_2
+Frame_Sync      cell    Sync_cnt_reg[1]         Sync_cnt_reg_1
+Frame_Sync      cell    Sync_cnt_reg[0]         Sync_cnt_reg_0
+Frame_Sync      cell    cnt_reg[4]              cnt_reg_4
+Frame_Sync      cell    cnt_reg[3]              cnt_reg_3
+Frame_Sync      cell    cnt_reg[2]              cnt_reg_2
+Frame_Sync      cell    cnt_reg[1]              cnt_reg_1
+Frame_Sync      cell    cnt_reg[0]              cnt_reg_0
+Frame_Sync      net     *Logic1*                n_Logic1_
+Frame_Sync      net     *Logic0*                n_Logic0_
+DEMUX_8_200     cell    dly_S_indic_reg[2]      dly_S_indic_reg_2
+DEMUX_8_200     cell    dly_S_indic_reg[1]      dly_S_indic_reg_1
+DEMUX_8_200     cell    dly_S_indic_reg[0]      dly_S_indic_reg_0
+DEMUX_8_200     cell    dly_rd_err_indic_reg[2] dly_rd_err_indic_reg_2
+DEMUX_8_200     cell    dly_rd_err_indic_reg[1] dly_rd_err_indic_reg_1
+DEMUX_8_200     cell    dly_rd_err_indic_reg[0] dly_rd_err_indic_reg_0
+DEMUX_8_200     cell    parity_checking_bit_reg[7] parity_checking_bit_reg_7
+DEMUX_8_200     cell    parity_checking_bit_reg[6] parity_checking_bit_reg_6
+DEMUX_8_200     cell    parity_checking_bit_reg[5] parity_checking_bit_reg_5
+DEMUX_8_200     cell    parity_checking_bit_reg[4] parity_checking_bit_reg_4
+DEMUX_8_200     cell    parity_checking_bit_reg[3] parity_checking_bit_reg_3
+DEMUX_8_200     cell    parity_checking_bit_reg[2] parity_checking_bit_reg_2
+DEMUX_8_200     cell    parity_checking_bit_reg[1] parity_checking_bit_reg_1
+DEMUX_8_200     cell    parity_checking_bit_reg[0] parity_checking_bit_reg_0
+DEMUX_8_200     cell    cnt_reg[4]              cnt_reg_4
+DEMUX_8_200     cell    cnt_reg[3]              cnt_reg_3
+DEMUX_8_200     cell    cnt_reg[2]              cnt_reg_2
+DEMUX_8_200     cell    cnt_reg[1]              cnt_reg_1
+DEMUX_8_200     cell    cnt_reg[0]              cnt_reg_0
+DEMUX_8_200     cell    dly_cnt25_flag_reg[1]   dly_cnt25_flag_reg_1
+DEMUX_8_200     cell    dly_cnt25_flag_reg[0]   dly_cnt25_flag_reg_0
+DEMUX_8_200     cell    g5[0].U_DEMUX_1_25      g5_0_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[1].U_DEMUX_1_25      g5_1_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[2].U_DEMUX_1_25      g5_2_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[3].U_DEMUX_1_25      g5_3_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[4].U_DEMUX_1_25      g5_4_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[5].U_DEMUX_1_25      g5_5_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[6].U_DEMUX_1_25      g5_6_U_DEMUX_1_25
+DEMUX_8_200     cell    g5[7].U_DEMUX_1_25      g5_7_U_DEMUX_1_25
+DEMUX_8_200     net     *Logic1*                n_Logic1_
+DEMUX_8_200     net     *Logic0*                n_Logic0_
+data_test_ctrl  cell    data_test_out_reg[7]    data_test_out_reg_7
+data_test_ctrl  cell    data_test_out_reg[6]    data_test_out_reg_6
+data_test_ctrl  cell    data_test_out_reg[5]    data_test_out_reg_5
+data_test_ctrl  cell    data_test_out_reg[4]    data_test_out_reg_4
+data_test_ctrl  cell    data_test_out_reg[3]    data_test_out_reg_3
+data_test_ctrl  cell    data_test_out_reg[2]    data_test_out_reg_2
+data_test_ctrl  cell    data_test_out_reg[1]    data_test_out_reg_1
+data_test_ctrl  cell    data_test_out_reg[0]    data_test_out_reg_0
+data_test_ctrl  net     *Logic1*                n_Logic1_
+data_test_ctrl  net     *Logic0*                n_Logic0_
+clk_div         net     *Logic0*                n_Logic0_
+DMUX_10_1       cell    data_temp_reg[0]        data_temp_reg_0
+DMUX_10_1       cell    data_temp_reg[1]        data_temp_reg_1
+DMUX_10_1       cell    data_temp_reg[2]        data_temp_reg_2
+DMUX_10_1       net     *Logic0*                n_Logic0_
+B4_ADDER        cell    b4_adder_result_temp_reg[1] b4_adder_result_temp_reg_1
+B4_ADDER        cell    b4_adder_result_temp_reg[0] b4_adder_result_temp_reg_0
+B4_ADDER        cell    b4_adder_result_reg[1]  b4_adder_result_reg_1
+B4_ADDER        cell    b4_adder_result_reg[0]  b4_adder_result_reg_0
+B4_ADDER        net     *Logic0*                n_Logic0_
+B6_ADDER        cell    result_reg[3]           result_reg_3
+B6_ADDER        cell    result_reg[2]           result_reg_2
+B6_ADDER        cell    result_reg[1]           result_reg_1
+B6_ADDER        cell    result_reg[0]           result_reg_0
+B6_ADDER        cell    abcd_adder_result_reg[1] abcd_adder_result_reg_1
+B6_ADDER        cell    abcd_adder_result_reg[0] abcd_adder_result_reg_0
+B6_ADDER        cell    b6_adder_result_reg[2]  b6_adder_result_reg_2
+B6_ADDER        cell    b6_adder_result_reg[1]  b6_adder_result_reg_1
+B6_ADDER        cell    b6_adder_result_reg[0]  b6_adder_result_reg_0
+B6_ADDER        net     *Logic0*                n_Logic0_
+CODE_DETECT     cell    b4_dp_reg[1]            b4_dp_reg_1
+CODE_DETECT     cell    b4_dp_reg[0]            b4_dp_reg_0
+CODE_DETECT     cell    b6_dp_reg[1]            b6_dp_reg_1
+CODE_DETECT     cell    b6_dp_reg[0]            b6_dp_reg_0
+CODE_DETECT     cell    b4_reg[3]               b4_reg_3
+CODE_DETECT     cell    b4_reg[2]               b4_reg_2
+CODE_DETECT     cell    b4_reg[1]               b4_reg_1
+CODE_DETECT     cell    b4_reg[0]               b4_reg_0
+CODE_DETECT     cell    b6_reg[5]               b6_reg_5
+CODE_DETECT     cell    b6_reg[4]               b6_reg_4
+CODE_DETECT     cell    b6_reg[3]               b6_reg_3
+CODE_DETECT     cell    b6_reg[2]               b6_reg_2
+CODE_DETECT     cell    b6_reg[1]               b6_reg_1
+CODE_DETECT     cell    b6_reg[0]               b6_reg_0
+CODE_DETECT     net     *Logic0*                n_Logic0_
+DECODE_3B4B     cell    dly_b3_reg[5]           dly_b3_reg_5
+DECODE_3B4B     cell    dly_b3_reg[4]           dly_b3_reg_4
+DECODE_3B4B     cell    dly_b3_reg[3]           dly_b3_reg_3
+DECODE_3B4B     cell    dly_b3_reg[2]           dly_b3_reg_2
+DECODE_3B4B     cell    dly_b3_reg[1]           dly_b3_reg_1
+DECODE_3B4B     cell    dly_b3_reg[0]           dly_b3_reg_0
+DECODE_3B4B     cell    b3_reg[2]               b3_reg_2
+DECODE_3B4B     cell    b3_reg[1]               b3_reg_1
+DECODE_3B4B     cell    b3_reg[0]               b3_reg_0
+DECODE_3B4B     net     *Logic0*                n_Logic0_
+DECODE_5B6B     cell    result_reg[10]          result_reg_10
+DECODE_5B6B     cell    result_reg[9]           result_reg_9
+DECODE_5B6B     cell    result_reg[8]           result_reg_8
+DECODE_5B6B     cell    result_reg[7]           result_reg_7
+DECODE_5B6B     cell    result_reg[6]           result_reg_6
+DECODE_5B6B     cell    result_reg[5]           result_reg_5
+DECODE_5B6B     cell    result_reg[4]           result_reg_4
+DECODE_5B6B     cell    result_reg[3]           result_reg_3
+DECODE_5B6B     cell    result_reg[2]           result_reg_2
+DECODE_5B6B     cell    result_reg[1]           result_reg_1
+DECODE_5B6B     cell    result_reg[0]           result_reg_0
+DECODE_5B6B     cell    dly_a_reg[1]            dly_a_reg_1
+DECODE_5B6B     cell    dly_d_reg[1]            dly_d_reg_1
+DECODE_5B6B     cell    dly_e_reg[1]            dly_e_reg_1
+DECODE_5B6B     cell    dly_b_reg[1]            dly_b_reg_1
+DECODE_5B6B     cell    dly_c_reg[1]            dly_c_reg_1
+DECODE_5B6B     cell    dly_e_reg[0]            dly_e_reg_0
+DECODE_5B6B     cell    dly_b_reg[0]            dly_b_reg_0
+DECODE_5B6B     cell    dly_c_reg[0]            dly_c_reg_0
+DECODE_5B6B     cell    dly_d_reg[0]            dly_d_reg_0
+DECODE_5B6B     cell    dly_a_reg[0]            dly_a_reg_0
+DECODE_5B6B     cell    b5_reg[4]               b5_reg_4
+DECODE_5B6B     cell    b5_reg[3]               b5_reg_3
+DECODE_5B6B     cell    b5_reg[2]               b5_reg_2
+DECODE_5B6B     cell    b5_reg[1]               b5_reg_1
+DECODE_5B6B     cell    b5_reg[0]               b5_reg_0
+DECODE_5B6B     net     *Logic0*                n_Logic0_
+RD_DETECT       cell    dly_b4_dp_reg[1]        dly_b4_dp_reg_1
+RD_DETECT       cell    dly_b4_dp_reg[0]        dly_b4_dp_reg_0
+RD_DETECT       cell    dly_b6_dp_reg[1]        dly_b6_dp_reg_1
+RD_DETECT       cell    dly_b6_dp_reg[0]        dly_b6_dp_reg_0
+RD_DETECT       net     *Logic0*                n_Logic0_
+Parity_Check    cell    result_temp_reg[7]      result_temp_reg_7
+Parity_Check    cell    result_temp_reg[6]      result_temp_reg_6
+Parity_Check    cell    result_temp_reg[5]      result_temp_reg_5
+Parity_Check    cell    result_temp_reg[4]      result_temp_reg_4
+Parity_Check    cell    result_temp_reg[3]      result_temp_reg_3
+Parity_Check    cell    result_temp_reg[2]      result_temp_reg_2
+Parity_Check    cell    result_temp_reg[1]      result_temp_reg_1
+Parity_Check    cell    result_temp_reg[0]      result_temp_reg_0
+Parity_Check    net     *Logic0*                n_Logic0_
+DEMUX_1_25      cell    dly_data_demux_1_25_in_reg[4] dly_data_demux_1_25_in_reg_4
+DEMUX_1_25      cell    dly_data_demux_1_25_in_reg[3] dly_data_demux_1_25_in_reg_3
+DEMUX_1_25      cell    dly_data_demux_1_25_in_reg[2] dly_data_demux_1_25_in_reg_2
+DEMUX_1_25      cell    dly_data_demux_1_25_in_reg[1] dly_data_demux_1_25_in_reg_1
+DEMUX_1_25      cell    dly_data_demux_1_25_in_reg[0] dly_data_demux_1_25_in_reg_0
+DEMUX_1_25      cell    data_temp_reg[4]        data_temp_reg_4
+DEMUX_1_25      cell    data_temp_reg[3]        data_temp_reg_3
+DEMUX_1_25      cell    data_temp_reg[2]        data_temp_reg_2
+DEMUX_1_25      cell    data_temp_reg[1]        data_temp_reg_1
+DEMUX_1_25      cell    data_temp_reg[0]        data_temp_reg_0
+DEMUX_1_25      cell    g4[0].U_DEMUX_1_5       g4_0_U_DEMUX_1_5
+DEMUX_1_25      cell    g4[1].U_DEMUX_1_5       g4_1_U_DEMUX_1_5
+DEMUX_1_25      cell    g4[2].U_DEMUX_1_5       g4_2_U_DEMUX_1_5
+DEMUX_1_25      cell    g4[3].U_DEMUX_1_5       g4_3_U_DEMUX_1_5
+DEMUX_1_25      cell    g4[4].U_DEMUX_1_5       g4_4_U_DEMUX_1_5
+DEMUX_1_25      net     *Logic0*                n_Logic0_
+DEMUX_1_5       cell    dly_data_demux_1_5_in_reg[4] dly_data_demux_1_5_in_reg_4
+DEMUX_1_5       cell    dly_data_demux_1_5_in_reg[3] dly_data_demux_1_5_in_reg_3
+DEMUX_1_5       cell    dly_data_demux_1_5_in_reg[2] dly_data_demux_1_5_in_reg_2
+DEMUX_1_5       cell    dly_data_demux_1_5_in_reg[1] dly_data_demux_1_5_in_reg_1
+DEMUX_1_5       cell    dly_data_demux_1_5_in_reg[0] dly_data_demux_1_5_in_reg_0
+DEMUX_1_5       cell    data_demux_1_5_out_reg[4] data_demux_1_5_out_reg_4
+DEMUX_1_5       cell    data_demux_1_5_out_reg[3] data_demux_1_5_out_reg_3
+DEMUX_1_5       cell    data_demux_1_5_out_reg[2] data_demux_1_5_out_reg_2
+DEMUX_1_5       cell    data_demux_1_5_out_reg[1] data_demux_1_5_out_reg_1
+DEMUX_1_5       cell    data_demux_1_5_out_reg[0] data_demux_1_5_out_reg_0
+DEMUX_1_5       net     *Logic0*                n_Logic0_
+1
+#write -format ddc -hierarchy -output $OutputPath/$DesignTopName.gtech.ddc
+#write -format verilog -hierarchy -output $OutputPath/$DesignTopName.gtech.v
+current_design $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+link
+
+  Linking design 'Decoder'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (18 designs)              /home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/Decoder.db, etc
+  tcb018g3d3bc (library)      /home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a/tcb018g3d3bc.db
+  dw_foundation.sldb (library) /home/synopsys/syn/O-2018.06-SP1/libraries/syn/dw_foundation.sldb
+
+1
+#######################################################
+#Check Design to find out undriven nets
+#######################################################
+set dont_bind_unused_pins_to_logic_constant true;#¿ÉÄÜµÄÓÃÍ¾£º²»½«Ðü¿ÕÐÅºÅ×Ô¶¯ÉèÖÃÎª³£Êý
+true
+check_design > $RptFilePath/check_design.rpt
+uniquify
+Information: Uniquified 10 instances of design 'DMUX_10_1'. (OPT-1056)
+Information: Uniquified 8 instances of design 'DEMUX_1_25'. (OPT-1056)
+Information: Uniquified 40 instances of design 'DEMUX_1_5'. (OPT-1056)
+1
+list_designs > $RptFilePath/design_list.rpt
+#######################################################
+# design ready
+#######################################################
+#######################################################
+# set synthesis constraints
+#######################################################
+source -echo -verbose ./scr/ComConstraintSet.tcl
+#######################################################
+# save the case analysis log file
+#######################################################
+#set case_analysis_log_file "./rpt/$ChipWorkMode.case.log"
+#######################################################
+# compile constraint
+#######################################################
+#if { $DesignFlowStage == "SYN" } {
+#    set_critical_range 2.0 [get_designs {pg4_rx_top_1x1_30_6_0000000a fft_128_64_top}]
+#}
+#######################################################
+# milkyway library
+#######################################################
+#if { $DesignFlowStage == "SYN" || ${DesignFlowStage} == "PRE" } {
+#source -echo -verbose ${ProjSynPath}/scr/physical_setup.tcl
+#}
+#####################################################
+# source SDC files in different modes
+#######################################################
+#read_sdc -echo ${SdcPath}/${DesignTopName}_${ChipWorkMode}.sdc
+source -echo -verbose ${SdcPath}/${DesignTopName}_${ChipWorkMode}.sdc
+##############################################################################
+# $Id: tfsdc_chiptop_FUN.sdc 3716 2012-11-19 06:24:44Z zhaofh $
+# -------------------------------------------------------------------------
+#        Copyright (C) 2010-2015 W.X.T Technology Co., Ltd.
+#                              All Rights Reserved.
+#
+# This file contains proprietary and confidential information.
+# The content or any derivative work can be used only by or distributed
+# to licensed users or owners.
+# ------------------------------------------------------------------------
+# Project: TFSDC                         $Revision: 3716 $
+# Creator: Zhao Zhenbo                  $LastChangedBy: zhaofh $
+# Created: 2012-09-20                    $LastChangedDate: 2012-11-19 14:24:44 +0800 (Ã¤Â¸Â€, 19 11Ã¦ÂœÂˆ 2012) $
+# ------------------------------------------------------------------------
+# Description:
+#   Functional Mode SDC file
+#    1.  
+#    2. 
+# ------------------------------------------------------------------------
+# Revision History:
+#   - V0.01 2012-09-20: Zhao Zhenbo
+#       Inital version
+#
+###############################################################################
+#åœ¨çº¦æŸæ–‡ä»¶ä¸­ï¼Œä¼šæ¶‰åŠä¸‰ç§æ—¶é’Ÿï¼šç†æƒ³æ—¶é’Ÿã€generatedæ—¶é’Ÿã€è™šæ‹Ÿæ—¶é’Ÿã€‚
+#* 		ç†æƒ³æ—¶é’Ÿ--ç†æƒ³æ—¶é’Ÿæ˜¯æ•´ä¸ªè®¾è®¡çš„æºã€‚
+#	create_clock -period -waveform { } -name get_ports
+#* 		generatedæ—¶é’Ÿ--generatedæ—¶é’Ÿï¼Œç”±ç†æƒ³æ—¶é’Ÿç»è¿‡åˆ†é¢‘æˆ–é€‰æ‹©äº§ç”Ÿã€‚
+#	ç”¨create_generated_clockå‘½ä»¤äº§ç”Ÿã€‚
+#* 		è™šæ‹Ÿæ—¶é’Ÿ--è™šæ‹Ÿæ—¶é’Ÿåœ¨è®¾è®¡ä¸­æ²¡æœ‰æºï¼Œä¸»è¦ç”¨äºŽè®¾ç½®è¾“å…¥ã€è¾“å‡ºå»¶è¿Ÿï¼Œé…åˆinput delayï¼Œ output delayç”¨ã€‚
+#	ç”¨create_clock -period å‘½ä»¤äº§ç”Ÿã€‚
+set ClkMargin 1.00;#è®¾ç½®æ—¶é’Ÿä½™é‡
+1.00
+####################################
+# Global units
+####################################
+#set_units -time ns -capacitance pF
+#########################################
+# Set Case Analysis For Different Mode
+#########################################
+#DFT mode
+#set_case_analysis 0 [get_pins u1_tfsdc_chipcore/u1_tfsdc_digital/u15_sd_test_top/u_testmode_seq_inst/u_scan_tm/X]
+#MaxTransitionæœ€å¤§è½¬æ¢æ—¶é—´ï¼Œçº¦æŸäº†æ ‡å‡†å•å…ƒä¸­ä¿¡å·ç”±0åˆ°1æˆ–ç”±1åˆ°0çš„è½¬æ¢æ—¶é—´ï¼Œåº“ä¸­æœ‰æœ€å¤§è½¬æ¢æ—¶é—´çš„è¦æ±‚ï¼Œå¯ä»¥è®¾ç½®çš„æ›´ä¸¥æ ¼ã€‚
+#ç”¨äºŽæ—¶é’Ÿç»„ï¼ˆclockâ€‚groupï¼‰ã€ç«¯å£ï¼ˆinput/outputâ€‚portsï¼‰æˆ–è€…è®¾è®¡ï¼ˆdesignï¼‰è®¾ç½®max_transitionå±žæ€§ã€‚å…¶å•ä½ç”±å·¥è‰ºåº“ï¼ˆtechnologyâ€‚libraryï¼‰å®šä¹‰ï¼Œä¸€èˆ¬æ˜¯ns
+#å¦‚ä½•è®¾ç½®ï¼šdataå–1/3å‘¨æœŸï¼Œclockå–1/6å‘¨æœŸï¼Œå¦‚æžœfoundaryæœ‰æä¾›max transitionå°±æ‹¿è¿™ä¸¤ä¸ªå€¼å’Œä»–ä»¬æ¯”å–å°çš„é‚£ä¸ª
+#MaxFanoutçº¦æŸcellçš„æœ€å¤§æ‰‡å‡º,æ‰‡å‡ºè¿‡å¤§ä¼šä½¿cell delayå˜æ…¢
+#set_max_fanoutçº¦æŸäº†æŸæ¡netä¸Šé©±åŠ¨çš„æ‰€æœ‰cellçš„ä¸ªæ•°çš„æ€»å’Œï¼Œè€Œè¿™æ¡netå¯ä»¥ç”±input porté©±åŠ¨
+#æ³¨ï¼š1ã€å·¥è‰ºåº“æ£€ç´¢max_fanoutã€max_transition  â€”â€”â€”â€”    grep "max_*" xxx.lib
+#		 2ã€æŸ¥æ‰¾å·¥è‰ºåº“ä¸­çº¦æŸï¼šç”¨viç¼–è¾‘å™¨æ‰“å¼€.libæ–‡ä»¶ï¼Œæ–‡ä»¶å¼€å¤´å°±æœ‰ä¸€äº›çº¦æŸï¼šdefault_max_transitionï¼š3ï¼›default_max_fanoutï¼š15ï¼›ç­‰ç­‰
+#MaxAreaæœ€å¤§é¢ç§¯ä¸€èˆ¬è®¾ä¸º0ï¼Œå³è®©ç»¼åˆåŽçš„é¢ç§¯è¶Šå°è¶Šå¥½
+set MaxTransition 1.6810
+1.6810
+set MaxFanout 1 
+1
+set MaxArea 0
+0
+current_design $DesignTopName 
+Current design is 'Decoder'.
+{Decoder}
+####################################
+#clock Definition
+####################################
+# ext_sd_clk
+set ClkName src_clk;#æ—¶é’Ÿåç§°
+src_clk
+set ClkPoint clk_500M 
+clk_500M
+set ClkFrequency 500;#æ—¶é’Ÿé¢‘çŽ‡
+500
+create_clock -period [expr 1000.0/($ClkFrequency*($ClkMargin))] -name $ClkName [get_ports $ClkPoint]
+1
+#periodè¡¨ç¤ºæ—¶é’Ÿå‘¨æœŸï¼Œå•ä½ä¸ºnsï¼›-nameè¡¨ç¤ºç”Ÿæˆçš„æ—¶é’Ÿåç§°ç«¯å£åï¼›-waveformå¯ä»¥è¯¦ç»†æè¿°æ—¶é’Ÿå ç©ºæ¯”åŠå…¶ä¸Šä¸‹ç§»ä½ç½®ï¼›
+set ClkName clk_250M;#æ—¶é’Ÿåç§°
+clk_250M
+set ClkPoint u_clk_div/clk_250M_reg/Q
+u_clk_div/clk_250M_reg/Q
+set SourcePoint clk_500M;#æ—¶é’Ÿé¢‘çŽ‡
+clk_500M
+create_generated_clock -source [get_ports $SourcePoint] -name $ClkName -edges {1 3 5} [get_pins $ClkPoint]
+1
+####################################
+#Design Drv 
+###################################
+set_max_fanout  $MaxFanout [current_design]
+Current design is 'Decoder'.
+1
+set_max_transition $MaxTransition [current_design]
+Current design is 'Decoder'.
+1
+####################################
+#Area Opt 
+####################################
+set_max_area $MaxArea 
+1
+set_load 0.3 [all_outputs]
+1
+###################################
+#Driving Cell and Cap Load
+###################################
+###################################
+#Input Delay 
+###################################
+set_input_delay -min 0.1 -clock src_clk [all_inputs]
+1
+set_input_delay -max 0.3 -clock src_clk [all_inputs] 
+1
+##################################
+#Output Delay 
+##################################
+set_output_delay -max 0.3 -clock src_clk [all_outputs]
+1
+#################################
+#False Path
+#################################
+################################
+#set clock uncertainty 
+###############################
+set_clock_uncertainty -setup 0.4 [all_clocks]
+1
+################################
+#set multicycle_path
+################################
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_0/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_0/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_1/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_1/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_2/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_2/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_3/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_3/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_4/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_4/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_5/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_5/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_6/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_6/D]
+#set_multicycle_path 25 -setup -from [get_pins *] -to [get_pins data_test_out_reg_7/D]
+#set_multicycle_path 24 -hold -from [get_pins *] -to [get_pins data_test_out_reg_7/D]
+set_multicycle_path 2 -setup -start -from [get_clocks src_clk] -to [get_clocks clk_250M]
+1
+set_multicycle_path 1 -hold -from [get_clocks src_clk] -to [get_clocks clk_250M]
+1
+1
+#source -echo -verbose /project/tfa32f512/zhaofh/sdc/${DesignTopName}_${ChipWorkMode}.sdc
+#source -echo -verbose /home/zhaozb/project/release_script/svn2149/zhaozhenbo/sdc/tfsdc_chiptop_FUN.sdc
+#source -echo -verbose ${SdcPath}/../syn/result/tfsdc_chiptop_syn.sdc
+#source -echo -verbose ${SdcPath}/../sdc/tfsdc_chiptop_SYN.sdc
+#######################################################
+# define ideal or dont touch network	
+#######################################################
+#if { $DesignTopName  ==  "RFISS_IN2_D" }  { 
+#    if { $DesignFlowStage == "SYN" || $DesignFlowStage == "PRE" } {
+# Set dont touch
+#set_dont_touch_network [get_pins digit/clk_div/clk2]
+#set_dont_touch_network [get_pins digit/clk_div/clk32]
+#set_dont_touch_network [get_ports]
+#set_ideal_network [get_pins digit/clk_div/count_reg_4/Q]
+#set_ideal_network [get_ports clk]
+#set_ideal_network [get_pins digit/clk_div/clk32_buf/O]
+#set_ideal_network [get_pins digit/clk_div/clk2_buf/O]
+#set_ideal_network -no_propagated [get_ports rst_n]
+#set_ideal_network [get_pins digit/rst_n_syn/rst2_reg/Q]
+#}
+########################################################
+#set dont touch cells io ip etc.
+#######################################################
+##dont_touch£ºÊ¹Ä¿±êÄ£¿é²»½øÐÐÈÎºÎÓÅ»¯¡£
+##ideal_network£ºÄ¿±êµÄµç×èµçÈÝ¶¼ÊÇ0£¬¶øÇÒcellºÍnet¶¼»ádont_touch£¬¶¼ÊÇ0ÑÓ³Ù¡£
+# Ä¬ÈÏset_ideal_network¾ßÓÐ´«²¥ÐÔ£¬´«²¥Ö±µ½ÓöÉÏÊ±Ðòµ¥Ôª»òÕßboundary cell¡£
+if { $DesignFlowStage == "SYN" || $DesignFlowStage == "PRE" } {
+      #clock network---¶¥²ãÊ±ÖÓclk
+      set_ideal_network [get_ports clk_500M]
+     # set_ideal_network [get_pins clk_div/cnt_reg/Q ]
+     # set_ideal_network [get_pins pwm/clk_miller_reg/Q]
+     # set_ideal_network [get_pins pwm/clk_blf_reg/Q]
+
+	    #set_ideal_network [get_pins digit/clk_div/count_reg_0/Q]
+			#reset network---È«¾Ö¸´Î»ÐÅºÅrstn
+	    set_ideal_network -no_propagate [get_ports rst_n]
+	   # set_ideal_network [get_pins digit/rst_n_syn/rst2_reg/Q]
+
+} elseif {$DesignFlowStage == "POST" } {
+    set_propagated_clock [all_clocks]
+    set_clock_uncertainty -hold 0.2 [all_clocks]
+    set_clock_uncertainty -setup 0.3 [all_clocks]
+#if {$ChipWorkMode != "CAPTURE" && $ChipWorkMode != "SHIFT"} {
+#    set_clock_uncertainty -setup 0.5 [get_clocks PHYCLOCK]
+#    set_clock_uncertainty -hold 0.2 [get_clocks PHYCLOCK]
+#    set_clock_uncertainty -hold 0.5 [get_clocks PHYCLOCK]
+#   }
+}
+1
+#######################################################
+# constraints for power analysis
+#######################################################
+#set_switching_activity -toggle_rate 2 -period 10 -static_probability 0.25 [all_inputs]
+#set_switching_activity -toggle_rate 0.2 -static_probability 0.5 -clock "*" -select inputs
+#######################################################
+# File end
+#######################################################
+#set_annotated_delay  -incr -from [get_pin chipcore/U11/B] -to [get_pin chipcore/U11/Y] -cell 2
+source -echo -verbose ./scr/SynConstraintSet.tcl
+#######################################################
+# Set Dont touch Pad
+#######################################################
+#sizeof_collection [get_cell u_tie*]
+#set_dont_touch [get_cell u_tie*]
+#set_dont_touch [get_cell u_*pad*]
+#######################################################
+# Set Dont touch subdesign
+#######################################################
+#set_dont_touch [get_cell  chipcore/u2_macro]
+#set_dont_touch [get_cell  chipcore/u*_spcell]
+#set_dont_touch [get_cell  u1_chipcore/u_c51ca36ae_analog]
+#set_dont_touch [get_cell  u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_clk/u_clk_gen/u_*_buf]
+#set_dont_touch [get_cell  u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_clk/u_clk_gen/u_*_mux]
+#set_dont_touch [get_cell  u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_clk/u_clk_gen/u_*_gate]
+#set_dont_touch [get_cell  u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_clk/u_clk_ctrl/u_scan_en]
+#set_dont_touch [get_cell  control/tag_state_reg*]
+#set_dont_touch [get_cell  control/info_lock_reg*]
+#set_dont_touch [get_cell  control/code_lock_reg*]
+#set_dont_touch [get_cell  control/security_lock_reg*]
+#set_dont_touch [get_cell  control/user_lock_reg*]
+#set_dont_touch [get_cell  control/se_mode_reg*]
+#set_dont_touch [get_cell  control/fsm_state_reg*]
+#set_dont_touch [get_cell  control/error_code_reg*]
+#set_dont_touch [get_cell  data_pro/cnt1_reg* ]
+#set_dont_touch [get_cell  tpp_decoder/state_reg* ]
+#set_dont_touch [get_cell  mtp_ctr/main_array* ]
+#######################################################
+# Set dont touch network
+#######################################################
+#set_dont_touch_network [get_port [list vcc vgnd apad_la apad_lb apad_tp]]
+#set_dont_touch_network [get_port [list vpwr vref vm vh vcc5_test vpwr18_test]]
+#######################################################
+# Set operating conditions
+#######################################################
+#set_operating_conditions -analysis_type bc_wc -min_library tcb018mmhdbwplt1d1 -max_library tcb018mmhdbwpwc0d9 #    -min LT1D1COM -max WC0D9COM
+set_operating_conditions -analysis_type on_chip_variation -library $BcLibName $BcOptCond
+Using operating conditions 'BCCOM' found in library 'tcb018g3d3bc'.
+1
+#set_wire_load_model -name $WireLoadModelName
+#set_wire_load_mode $WireLoadModeName
+#set auto_wire_load_selection false
+#######################################################
+# remove assign statement
+#######################################################
+current_design  $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+set_fix_multiple_port_nets -all -buffer_constants -feedthroughs -constants 
+1
+#######################################################
+# define clock gating
+#######################################################
+current_design $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+#        -negative_edge_logic integrated #        -max_fanout $ClockGatingFanout #    insert_clock_gating
+#-positive_edge_logic integrated:Ê¹ÓÃÉÏÉýÑØ´¥·¢µÄ¼¯³ÉÃÅ¿ØÊ±ÖÓµ¥Ôª
+#ICGÊ¹ÓÃ-setup¡¢-holdÑ¡Ïî»áÌáÊ¾£ºWarning: The setup and hold values overrides the library values for the integrated cells. (PWR-206)
+if { $ClockGatingSyn == "true" } {
+    set_clock_gating_style         -sequential_cell latch         -positive_edge_logic integrated         -negative_edge_logic integrated         -setup $ClockGatingSetup         -hold $ClockGatingHold         -control_point before         -control_signal scan_enable         -minimum_bitwidth $ClockGatingMinNum
+
+#set_clock_gating_registers -exclude_instances #{u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_test/*reg* #}
+
+	#Ê¹ÓÃICG£¨¼¯³ÉÃÅ¿Øµ¥Ôª£©²»ÐèÒª´Ë¼ÓÊ±ÐòÔ¼Êø£¬Èç¹ûÊÇ²»»ùÓÚlatch£¨Ê¹ÓÃor¡¢andµÈ´î½¨£©µÄÃÅ¿ØÊ±ÖÓ¾ÍÐèÒª
+    set_clock_gating_check -setup $ClockGatingSetup -hold $ClockGatingHold [all_clocks]
+}
+#insert_clock_gating -global
+#replace_clock_gates -global
+#######################################################
+# Set DFT false element
+#######################################################
+#set_scan_element false [list #         u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_test/rst_shift_reg* #         u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_test/io_shift_reg* #         u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_test/wafertest_md6_reg #         u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_eepif/u2_ee_sfr/ee_sfr_tctrim_reg* #         u1_chipcore/u_c51ca36ae_digital/u_c51ca36ae_eepif/u2_ee_sfr/ee_sfr_abstrim_reg* #         ]    
+#
+#current_design c51ca36ae_test
+#set_scan_element false [list rst_shift_reg*]
+#set_scan_element false [list io_shift_reg*]
+#set_scan_element false [list wafertest_md6_reg]
+#current_design c51ca36ae_eepif
+#set_scan_element false [list u2_ee_sfr/ee_sfr_tctrim_reg*]
+#set_scan_element false [list u2_ee_sfr/ee_sfr_abstrim_reg*]
+#######################################################
+# read def file for physical place setup
+#######################################################
+#set_preferred_routing_direction -layers {met1 met3} -direction horizontal
+#set_preferred_routing_direction -layers {met2 met4} -direction vertical
+#extract_physical_constraint ${ProjPath}/pnr/fp.def
+#######################################################
+# compile
+#######################################################
+current_design $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+set_critical_range 3 [current_design]
+Current design is 'Decoder'.
+1
+set compile_preserve_subdesign_interfaces true;#just for debug and remove this option for tape out
+true
+set compile_seqmap_propagate_constants false;#Ïû³ýOPT-1206£¬±£Áô³£Êý¼Ä´æÆ÷
+false
+set compile_seqmap_propagate_high_effort false;
+false
+#set_register_merging {control/error_code_reg* mtp_ctr/main_array*} false;#Ïû³ýOPT-1215
+# Following command is optional. Use for global clock gating
+set compile_clock_gating_through_hierarchy true
+true
+if { $TestReadySyn == "true" && $ClockGatingSyn == "true" } {
+    compile_ultra -scan -gate_clock -no_autoungroup -area_high_effort_script -no_boundary_optimization
+    #compile_ultra -scan -gate_clock -no_autoungroup -area_high_effort_script -inc
+    #compile -scan -gate_clock -boundary_optimization -map_effort high
+} elseif {$TestReadySyn == "true" && $ClockGatingSyn == "false" } {
+    compile_ultra -scan -no_autoungroup -area_high_effort_script
+#    compile -scan -boundary_optimization -map_effort high
+} elseif {$TestReadySyn == "false" && $ClockGatingSyn == "true" } {
+    compile_ultra -gate_clock -no_autoungroup -area_high_effort_script
+    #-area_high_effort_scriptÑ¡ÏîÓÃÖ¸Áî´úÌæ£ºoptimize_netlist -area
+#    compile -gate_clock -boundary_optimization -map_effort high
+} else {
+    #compile_ultra -gate_clock -no_autoungroup
+	 	compile_ultra -gate_clock -no_autoungroup -exact_map -no_seq_output_inversion -no_boundary_optimization	;#for debug
+
+		#compile_ultra -gate_clock -no_autoungroup -area_high_effort_script
+#    compile -boundary_optimization -map_effort high
+}
+Warning: The value of variable 'compile_preserve_subdesign_interfaces' has been changed to true because '-no_boundary_optimization' is used. (OPT-133)
+Information: Starting from 2013.12 release, constant propagation is enabled even when boundary optimization is disabled. (OPT-1318)
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a/tcb018g3d3bc.db"
+Library analysis succeeded.
+Information: Running optimization using a maximum of 6 cores. (OPT-1500)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | O-2018.06-DWBB_201806.1 |     *     |
+| Licensed DW Building Blocks        | O-2018.06-DWBB_201806.1 |     *     |
+============================================================================
+
+
+Information: There are 11 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'Decoder'
+
+Loaded alib file './alib-52/tcb018g3d3bc.db.alib'
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'Decoder'
+  Processing 'DEMUX_8_200'
+ Implement Synthetic for 'DEMUX_8_200'.
+  Processing 'Frame_Sync'
+Information: Added key list 'DesignWare' to design 'Frame_Sync'. (DDB-72)
+ Implement Synthetic for 'Frame_Sync'.
+  Processing 'DECODE_5B6B'
+  Processing 'CODE_DETECT'
+  Processing 'DEMUX_1_25_0'
+  Processing 'Parity_Check'
+  Processing 'DEMUX_1_5_0'
+  Processing 'DMUX_10_1_0'
+  Processing 'B4_ADDER'
+Information: Added key list 'DesignWare' to design 'B4_ADDER'. (DDB-72)
+  Processing 'SNPS_CLOCK_GATE_HIGH_DEMUX_1_5_0_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_Parity_Check'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DECODE_8B10B'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DECODE_5B6B'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_CODE_DETECT'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_B4_ADDER'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DMUX_10_1_0_0'
+  Mapping integrated clock gating circuitry
+  Processing 'clk_div'
+Memory usage for J1 task 200 Mbytes -- main task 200 Mbytes.
+  Processing 'COMMA'
+  Processing 'DECODE_8B10B'
+ Implement Synthetic for 'DECODE_8B10B'.
+  Processing 'data_test_ctrl'
+  Processing 'MUX_20_10'
+  Processing 'RD_DETECT'
+  Processing 'DEMUX_1_25_7'
+  Processing 'DECODE_3B4B'
+  Processing 'B6_ADDER'
+Information: Added key list 'DesignWare' to design 'B6_ADDER'. (DDB-72)
+  Processing 'SNPS_CLOCK_GATE_HIGH_Decoder'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DEMUX_8_200_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DEMUX_1_25_0_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DEMUX_1_25_7_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_Frame_Sync_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_RD_DETECT'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_DECODE_3B4B'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_B6_ADDER'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_COMMA_0'
+  Mapping integrated clock gating circuitry
+  Processing 'SNPS_CLOCK_GATE_HIGH_MUX_20_10'
+  Mapping integrated clock gating circuitry
+Memory usage for J2 task 200 Mbytes -- main task 200 Mbytes.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: The library cell 'TIEL' in the library 'tcb018g3d3bc' is not characterized for internal power. (PWR-536)
+Information: The library cell 'TIEH' in the library 'tcb018g3d3bc' is not characterized for internal power. (PWR-536)
+Information: The target library(s) contains cell(s), other than black boxes, that are not characterized for internal power. (PWR-24)
+Memory usage for J3 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J4 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J5 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J6 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J7 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J8 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J9 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J10 task 200 Mbytes -- main task 200 Mbytes.
+Information: Performing global clock-gating on design Decoder. (PWR-731)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: Added key list 'DesignWare' to design 'DECODE_8B10B'. (DDB-72)
+Information: Added key list 'DesignWare' to design 'DEMUX_8_200'. (DDB-72)
+Memory usage for J11 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J12 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J13 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J14 task 200 Mbytes -- main task 200 Mbytes.
+Memory usage for J15 task 200 Mbytes -- main task 200 Mbytes.
+
+  Beginning Constant Register Removal
+  -----------------------------------
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+
+                                                          TOTAL                                                                     
+ ELAPSED                WORST NEG MAX DELAY  MIN DELAY    SETUP    DESIGN                                                   LEAKAGE 
+  TIME    TRIALS MBYTES   SLACK     COST       COST       COST    RULE COST   AREA    PATH GROUP         ENDPOINT            POWER  
+--------- ------ ------ --------- --------- ----------- --------- --------- --------- ---------- ------------------------- ---------
+  0:00:04      1  206.0      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1131
+  0:00:04      1  206.0      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1131
+  0:00:04      1  206.0      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1131
+  0:00:04      1  206.0      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1131
+Memory usage for J16 task 205 Mbytes -- main task 205 Mbytes.
+Memory usage for J17 task 205 Mbytes -- main task 205 Mbytes.
+Memory usage for J18 task 205 Mbytes -- main task 205 Mbytes.
+Memory usage for J19 task 205 Mbytes -- main task 205 Mbytes.
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+Memory usage for J20 task 205 Mbytes -- main task 205 Mbytes.
+Memory usage for J21 task 205 Mbytes -- main task 205 Mbytes.
+Memory usage for J22 task 205 Mbytes -- main task 205 Mbytes.
+Memory usage for J23 task 205 Mbytes -- main task 205 Mbytes.
+  0:00:04    258  206.0      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1076
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  0:00:05      1  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+               1
+          ------
+             278
+
+
+  Beginning Design Rule Fixing  (max_fanout)
+  ----------------------------
+
+                                                          TOTAL                                                                     
+ ELAPSED                WORST NEG MAX DELAY  MIN DELAY    SETUP    DESIGN                                                   LEAKAGE 
+  TIME    TRIALS MBYTES   SLACK     COST       COST       COST    RULE COST   AREA    PATH GROUP         ENDPOINT            POWER  
+--------- ------ ------ --------- --------- ----------- --------- --------- --------- ---------- ------------------------- ---------
+  0:00:05   5000  229.9      0.00      0.00      0.00         0.0    2389.0   85250.6                                       313.1075
+  Global Optimization (Phase 31)
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  0:00:06   5004  229.9      0.00      0.00      0.00         0.0    2386.0   90791.0            u_COMMA/net4473            330.9011
+  0:00:06   5004  229.9      0.00      0.00      0.00         0.0    2386.0   95476.1            u_COMMA/net5065            345.5019
+  0:00:07   5338  229.9      0.00      0.00      0.00         0.0    2381.0   95357.6            u_DECODE_8B10B/U_DECODE_5B6B/net5164  345.3164
+  0:00:07   5079  229.9      0.00      0.00      0.00         0.0    2381.0   95047.1            u_COMMA/net5881            344.5225
+  0:00:07   5056  229.9      0.00      0.00      0.00         0.0    2381.0   94649.2            u_COMMA/net6555            343.4376
+  0:00:08   5325  229.9      0.00      0.00      0.00         0.0    2381.0   94228.6            u_COMMA/net7724            342.3002
+  0:00:08   5655  229.9      0.00      0.00      0.00         0.0    2381.0   94028.3            u_DEMUX_8_200/net7223      341.6108
+  0:00:08   5133  229.9      0.00      0.00      0.00         0.0    2381.0   93802.5            u_data_test_ctrl/net5928   341.0544
+  0:00:09   5134  229.9      0.00      0.00      0.00         0.0    2381.0   93633.1            u_data_test_ctrl/net7013   340.5515
+  0:00:09  11888  229.9      0.00      0.00      0.00         0.0    2381.0   93461.0            u_DEMUX_8_200/check_EN     340.0755
+  0:00:10   5045  229.9      0.00      0.00      0.00         0.0    2380.0   94064.9            net8167                    342.0595
+  0:00:10   5087  229.9      0.00      0.00      0.00         0.0    2380.0   93712.1            u_DEMUX_8_200/net5529      340.9214
+  0:00:11   5680  229.9      0.00      0.00      0.00         0.0    2380.0   92958.6            u_DEMUX_8_200/g5_0_U_DEMUX_1_25/dly_data_demux_1_25_in[4]  338.4111
+  0:00:11   5073  229.9      0.00      0.00      0.00         0.0    2380.0   92207.8            u_COMMA/data_shift[12]     335.8453
+  0:00:11   5041  229.9      0.00      0.00      0.00         0.0    2380.0   91601.0            u_COMMA/data_comma_detect[8]  333.8349
+  0:00:12   6152  229.9      0.00      0.00      0.00         0.0    2380.0   90915.1            u_data_test_ctrl/net8041   331.5073
+  0:00:12   5182  229.9      0.00      0.00      0.00         0.0    2380.0   90028.9            u_data_test_ctrl/net4803   328.6599
+  0:00:13   5048  229.9      0.00      0.00      0.00         0.0    2380.0   88993.1            u_Frame_Sync/net5935       325.1771
+  0:00:13   5082  229.9      0.00      0.00      0.00         0.0    2380.0   88355.2            u_MUX_20_10/net6119        323.0336
+  0:00:14   5039  229.9      0.00      0.00      0.00         0.0    2380.0   87878.2            u_COMMA/net6642            321.4994
+  0:00:14   5090  229.9      0.00      0.00      0.00         0.0    2380.0   87392.8            EN                         319.8593
+  0:00:17  15899  229.9      0.00      0.00      0.00         0.0    2380.0   86848.1            u_data_test_ctrl/net8358   318.1034
+  0:00:18   9851  229.9      0.00      0.00      0.00         0.0    2380.0   86808.6            u_COMMA/data_shift[13]     317.9710
+  0:00:18   8744  229.9      0.00      0.00      0.00         0.0    2380.0   86783.2            u_COMMA/net6726            317.8916
+  0:00:22  35219  229.9      0.00      0.00      0.00         0.0    2380.0   86740.8                                       317.7594
+  0:00:22      1  229.9      0.00      0.00      0.00         0.0    2380.0   86740.8                                       317.7594
+               0
+          ------
+          200858
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                                          TOTAL                                                                     
+ ELAPSED                WORST NEG MAX DELAY  MIN DELAY    SETUP    DESIGN                                                   LEAKAGE 
+  TIME    TRIALS MBYTES   SLACK     COST       COST       COST    RULE COST   AREA    PATH GROUP         ENDPOINT            POWER  
+--------- ------ ------ --------- --------- ----------- --------- --------- --------- ---------- ------------------------- ---------
+  0:00:22   5000  229.9      0.00      0.00      0.00         0.0    2380.0   86740.8                                       317.7594
+  Global Optimization (Phase 34)
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+  Global Optimization (Phase 45)
+  Global Optimization (Phase 46)
+  Global Optimization (Phase 47)
+  Global Optimization (Phase 48)
+  Global Optimization (Phase 49)
+  Global Optimization (Phase 50)
+  Global Optimization (Phase 51)
+  Global Optimization (Phase 52)
+  Global Optimization (Phase 53)
+  Global Optimization (Phase 54)
+  Global Optimization (Phase 55)
+  Global Optimization (Phase 56)
+  Global Optimization (Phase 57)
+  Global Optimization (Phase 58)
+  Global Optimization (Phase 59)
+  Global Optimization (Phase 60)
+  Global Optimization (Phase 61)
+  Global Optimization (Phase 62)
+  Global Optimization (Phase 63)
+  Global Optimization (Phase 64)
+  Global Optimization (Phase 65)
+  Global Optimization (Phase 66)
+  Global Optimization (Phase 67)
+  Global Optimization (Phase 68)
+  Global Optimization (Phase 69)
+  Global Optimization (Phase 70)
+  Global Optimization (Phase 71)
+  Global Optimization (Phase 72)
+  Global Optimization (Phase 73)
+  Global Optimization (Phase 74)
+  Global Optimization (Phase 75)
+  Global Optimization (Phase 76)
+  Global Optimization (Phase 77)
+  Global Optimization (Phase 78)
+  Global Optimization (Phase 79)
+  Global Optimization (Phase 80)
+  Global Optimization (Phase 81)
+  Global Optimization (Phase 82)
+  Global Optimization (Phase 83)
+  Global Optimization (Phase 84)
+  Global Optimization (Phase 85)
+  Global Optimization (Phase 86)
+  Global Optimization (Phase 87)
+  Global Optimization (Phase 88)
+  0:00:41     76  229.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  229.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  229.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+               0
+          ------
+              97
+
+                                                          TOTAL                                                                     
+ ELAPSED                WORST NEG MAX DELAY  MIN DELAY    SETUP    DESIGN                                                   LEAKAGE 
+  TIME    TRIALS MBYTES   SLACK     COST       COST       COST    RULE COST   AREA    PATH GROUP         ENDPOINT            POWER  
+--------- ------ ------ --------- --------- ----------- --------- --------- --------- ---------- ------------------------- ---------
+  0:00:41      1  230.9      0.00      0.00      0.00         0.0    2380.0   85826.4                                       315.2458
+  0:00:42      1  230.9      0.00      0.00      0.00         0.0    2380.0   85705.0                                       314.4141
+  0:00:42      1  230.9      0.00      0.00      0.00         0.0    2380.0   85705.0                                       314.4141
+  0:00:42      1  230.9      0.00      0.00      0.00         0.0    2380.0   85705.0                                       314.4141
+  0:00:42      1  230.9      0.00      0.00      0.00         0.0    2380.0   85705.0                                       314.4141
+  0:00:42   5001  230.9      0.00      0.00      0.00         0.0    2380.0   92428.0            u_DECODE_8B10B/net17269    346.5363
+  0:00:43   5287  230.9      0.00      0.00      0.00         0.0    2380.0  109430.1            u_DECODE_8B10B/U_RD_DETECT/net6329  442.4327
+  0:00:43   5001  230.9      0.00      0.00      0.00         0.0    2380.0  112616.6            u_data_test_ctrl/net18147  449.4193
+  0:00:44   5031  230.9      0.00      0.00      0.00         0.0    2380.0  113929.0            u_Frame_Sync/net18885      451.6234
+  0:00:44   5139  230.9      0.00      0.00      0.00         0.0    2380.0  112977.8            u_DECODE_8B10B/net18609    446.5495
+  0:00:45   5077  230.9      0.00      0.00      0.00         0.0    2380.0  111860.2            u_COMMA/net18029           440.0148
+  0:00:45   5018  230.9      0.00      0.00      0.00         0.0    2380.0  108741.4            u_COMMA/net18903           420.5436
+  0:00:46   5031  230.9      0.00      0.00      0.00         0.0    2380.0  106678.3            u_COMMA/net19446           407.9785
+  0:00:46   5749  230.9      0.00      0.00      0.00         0.0    2380.0  106034.7            u_COMMA/net18621           404.6844
+  0:00:46   5116  230.9      0.00      0.00      0.00         0.0    2380.0  105464.6            u_DEMUX_8_200/g5_0_U_DEMUX_1_25/net17459  401.6828
+  0:00:47   5046  230.9      0.00      0.00      0.00         0.0    2380.0  105109.0            u_DEMUX_8_200/g5_6_U_DEMUX_1_25/net19743  400.1419
+  0:00:47   5921  230.9      0.00      0.00      0.00         0.0    2380.0  103438.1            u_data_test_ctrl/net15725  390.4458
+  0:00:47   5013  230.9      0.00      0.00      0.00         0.0    2380.0   98431.2            u_data_test_ctrl/net18856  358.5156
+  0:00:48   6247  230.9      0.00      0.00      0.00         0.0    2380.0   97530.9            u_data_test_ctrl/net21357  353.3883
+  0:00:49  13385  230.9      0.00      0.00      0.00         0.0    2380.0   97372.8            u_COMMA/net18288           352.9896
+  0:00:49   5144  230.9      0.00      0.00      0.00         0.0    2380.0   98168.7            net21553                   355.6989
+  0:00:49   5071  230.9      0.00      0.00      0.00         0.0    2380.0   97519.6            u_DEMUX_8_200/g5_3_U_DEMUX_1_25/net17807  353.5213
+  0:00:50   5014  230.9      0.00      0.00      0.00         0.0    2380.0   96718.0            u_DECODE_8B10B/net20620    350.8121
+  0:00:50   5014  230.9      0.00      0.00      0.00         0.0    2380.0   96178.9            u_COMMA/net19573           349.0325
+  0:00:51   5123  230.9      0.00      0.00      0.00         0.0    2380.0   95397.1            u_DEMUX_8_200/net19781     346.4562
+  0:00:51   5018  230.9      0.00      0.00      0.00         0.0    2380.0   94604.0            u_Frame_Sync/net4600       343.7474
+  0:00:52   5037  230.9      0.00      0.00      0.00         0.0    2380.0   93805.3            u_COMMA/net19518           341.1184
+  0:00:52   5021  230.9      0.00      0.00      0.00         0.0    2380.0   93167.4            u_COMMA/net13975           338.9937
+  0:00:52   7289  230.9      0.00      0.00      0.00         0.0    2380.0   92650.9            u_DECODE_8B10B/U_RD_DETECT/dly_b4_dp[0]  337.1879
+  0:00:53   5246  230.9      0.00      0.00      0.00         0.0    2380.0   90167.2            u_data_test_ctrl/net21469  328.9823
+  0:00:53   5038  230.9      0.00      0.00      0.00         0.0    2380.0   89549.1            u_COMMA/net18231           326.9106
+  0:00:54   5048  230.9      0.00      0.00      0.00         0.0    2380.0   88866.1            u_COMMA/net19385           324.4935
+  0:00:54   5049  230.9      0.00      0.00      0.00         0.0    2380.0   88448.4            u_DECODE_8B10B/b10[2]      323.1387
+  0:00:55   5159  230.9      0.00      0.00      0.00         0.0    2380.0   87745.6            net21639                   320.8014
+  0:00:56  12132  230.9      0.00      0.00      0.00         0.0    2380.0   87404.1            u_DECODE_8B10B/net17682    319.6857
+  0:00:57   5619  230.9      0.00      0.00      0.00         0.0    2380.0   87356.1            u_DEMUX_8_200/net21267     319.5265
+  0:00:57   5503  230.9      0.00      0.00      0.00         0.0    2380.0   87327.9            u_COMMA/net19385           319.4203
+  0:00:58  12920  230.9      0.00      0.00      0.00         0.0    2380.0   87296.8            u_data_test_ctrl/net4806   319.3140
+  0:01:02  39353  230.9      0.00      0.00      0.00         0.0    2380.0   87268.6                                       319.2343
+  0:01:02      1  230.9      0.00      0.00      0.00         0.0    2380.0   87268.6                                       319.2343
+  0:01:02      1  230.9      0.00      0.00      0.00         0.0    2380.0   87268.6                                       319.2343
+  0:01:02      1  230.9      0.00      0.00      0.00         0.0    2380.0   87268.6                                       319.2343
+  0:01:02      1  230.9      0.00      0.00      0.00         0.0    2380.0   87254.5                                       319.1812
+               0
+          ------
+          235869
+Loading db file '/home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a/tcb018g3d3bc.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+current_design $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+##############################################################################
+#compile -scan -map_effort high
+#compile -gate_clock -scan -map_effort high
+#compile_ultra  -scan -gate_clock -no_autoungroup
+#######################################################
+# File end
+#######################################################
+#######################################################
+# generate synthesis report and result 
+#######################################################
+source -echo -verbose ./scr/ResultOutput.tcl
+#######################################################
+# output report
+#######################################################
+# change names
+#redirectÖ¸ÁîÔÚÕâÀïÓÃÓÚ¸Ä±äreportÎÄ¼þÃû£¬{}ÖÐÎªÖ´ÐÐÖ¸Áî;ÕâÀïÖ´ÐÐÖ®Ç°Éú³ÉµÄÃüÃû¹æÔò
+#change_names£ºChanges the names of ports, cells, and nets in a design
+redirect -append $RptFilePath/${DesignTopName}.change_names { change_names -verbose -hier -rules slash }
+redirect -append $RptFilePath/${DesignTopName}.change_names { change_names -verbose -hier -rules cadence }
+redirect -append $RptFilePath/${DesignTopName}.change_names { change_names -verbose -hier -rules verilog }
+#get_cells£ºCreates a collection of cells from the current design, relative to the current instance.
+remove_unconnected_ports [get_cells -h *];#É¾³ýµ±Ç°Éè¼ÆÖÐ´æÔÚµÄËùÓÐÎ´Á¬½Ó¶Ë¿Ú----Ä£¿é¶Ë¿Ú£¡£¡ÔÚdebugÊ±ÏëÒª±£Áô¶Ë¿ÚÐÅºÅ£¬×¢ÊÍµôÕâÒ»¾ä£¡£¡
+1
+change_names -hier -rules verilog
+1
+#ÖØ¶¨Î»µÄÃüÁîredirect£¬ÒâË¼ÊÇ½«ºóÃæ{}ÖÐÃüÁîµÄÖ´ÐÐ½á¹û±£´æµ½ÎÄ¼þÖÐ
+#ÀàËÆÓÚlinuxÖÐ  > »ò  >> ²Ù×÷
+#tclshÖÐ²»Ö§³ÖredirectÖ¸Áî£¬ÕâÓ¦¸ÃÊÇdc×Ô¶¨ÒåµÄ
+redirect $RptFilePath/${DesignTopName}.report_ideal_network { report_ideal_network }
+redirect $RptFilePath/${DesignTopName}_syn.check_design { check_design }
+current_design $DesignTopName
+Current design is 'Decoder'.
+{Decoder}
+redirect -append [file join $RptFilePath/${DesignTopName}.report_power] { report_power -hier -analysis medium }
+redirect -append [file join $RptFilePath/${DesignTopName}.report_area] { report_area -hier }
+redirect -append $RptFilePath/${DesignTopName}.report_cell { report_cell }
+redirect $RptFilePath/${DesignTopName}.report_reference { report_reference -hier }
+redirect $RptFilePath/${DesignTopName}.report_timing_requirements { report_timing_requirements }
+redirect $RptFilePath/${DesignTopName}.check_timing { check_timing }
+redirect $RptFilePath/${DesignTopName}.report_timing_loops { report_timing -loops -max_paths 50 }
+redirect $RptFilePath/${DesignTopName}.report_clock_attribute_skew { report_clock -attributes -skew }
+redirect $RptFilePath/${DesignTopName}.report_design { report_design }
+redirect $RptFilePath/${DesignTopName}.report_port { report_port -verbose }
+#redirect $RptFilePath/${DesignTopName}.report_attribute { report_attribute -port -net -cell }
+redirect $RptFilePath/${DesignTopName}.report_qor { report_qor }
+redirect $RptFilePath/${DesignTopName}.report_disable_timing { report_disable_timing }
+redirect $RptFilePath/${DesignTopName}.report_clock_gating { report_clock_gating -gated }
+redirect $RptFilePath/${DesignTopName}.report_case_analysis { report_case_analysis }
+redirect [file join $RptFilePath ${DesignTopName}.report_constraint] {
+    echo "Info : report_constraint"
+    report_constraint
+    echo ""
+    echo "Info : report_constraint -all_violators"
+    report_constraint -all_violators
+    echo ""
+    echo "Info : report_constraint -all_violators -verboes"
+    report_constraint -all_violators -verbose
+    echo ""
+    echo "Info : report_constraint -max_fanout -verboes"
+    report_constraint -max_fanout -verbose
+    echo ""
+    echo "Info : report_constraint -max_transition -verboes"
+    report_constraint -max_transition -verbose
+}
+redirect $RptFilePath/${DesignTopName}.report_timing_max {
+    report_timing -nets          -transition_time         -input_pins              -capacitance             -path full_clock_expanded         -sort_by slack         -delay max             -nworst 20             -max_paths 50  }
+redirect $RptFilePath/${DesignTopName}.report_timing_min {
+    report_timing -nets          -transition_time         -input_pins              -capacitance             -path full_clock_expanded         -sort_by slack         -delay     min         -nworst    20          -max_paths 50      }
+#######################################################
+# synthsis result
+#######################################################
+write -format ddc -hierarchy -output $OutputPath/${DesignTopName}_syn.ddc
+Writing ddc file '/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/result/Decoder_syn.ddc'.
+1
+write -format verilog -hier -output $OutputPath/${DesignTopName}_syn.v
+Writing verilog file '/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/result/Decoder_syn.v'.
+1
+write_sdc -nosplit $OutputPath/${DesignTopName}_syn.sdc
+1
+write_sdf $OutputPath/${DesignTopName}_syn.sdf
+Information: Annotated 'cell' delays are assumed to include load delay. (UID-282)
+Information: Writing timing information to file '/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/result/Decoder_syn.sdf'. (WT-3)
+1
+write_parasitics -format reduced -output $OutputPath/${DesignTopName}_syn.spef
+Information: Writing parasitics to file '/home/ICer/IC_prj/8B-10B-Decoder/Decoder/syn/result/Decoder_syn.spef'. (WP-3)
+1
+#######################################################
+# report all using reference
+#######################################################
+redirect [file join $RptFilePath usingCell] {
+    echo "       cell name          count  "
+    echo "-----------------------------------"
+}
+redirect [file join $RptFilePath unusingCell] {
+    echo "       cell name          count  "
+    echo "-----------------------------------"
+}
+set CellList [exec cat $StdPath/cell.list]
+Error: cat: /home/ic_libs/TSMC_180/tcb018g3d3_280a/STD_CELL/digital/Front_End/timing_power_noise/NLDM/tcb018g3d3_280a/cell.list: No such file or directory
+	Use error_info for more info. (CMD-013)
+set SNusing 0
+0
+set SumUsingCell 0
+0
+set SNunusing 0
+0
+foreach StdCell $CellList {
+    set CellNum [sizeof [get_cells -filter "@ref_name == $StdCell" -h]]
+    if { $CellNum > 0} {
+        set SNusing [expr $SNusing + 1]
+        set SumUsingCell [expr $SumUsingCell + $CellNum]
+        redirect -append [file join $RptFilePath usingCell] {
+            echo " $SNusing    $StdCell    $CellNum"
+        }
+    } else {
+        set SNunusing [expr $SNunusing + 1]
+        redirect -append [file join $RptFilePath unusingCell] {
+            echo " $SNunusing    $StdCell    $CellNum"
+        }
+    }
+}
+Error: can't read "CellList": no such variable
+	Use error_info for more info. (CMD-013)
+redirect -append [file join $RptFilePath usingCell] {
+    echo "-----------------------------------"
+    echo "Summarry               $SumUsingCell"
+}
+set_svf -off
+1
+1
+#######################################################
+# end 
+#######################################################
+exit	
+
+Memory usage for main task 235 Mbytes.
+Memory usage for this session 235 Mbytes.
+CPU usage for this session 129 seconds ( 0.04 hours ).
+
+Thank you...
